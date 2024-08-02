@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student management system</title>
+        <!-- CSS link -->
+        <link href="css/header.css" rel="stylesheet">
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap JS and jQuery CDN links -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>   
+    </head>
+    <body class="d-flex flex-column h-100">
+         <!-- Begin Header -->
+         <header class="header" style="background-color: black;">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light p-4">
+                <a class="h3 text-decoration-none" href="home.html">
+                    <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"> Barnett College
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="ms-auto">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="display.html">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="edit.html">Edit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="delete.html">Delete</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="add.html">+New Student</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="settings.html">Settings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                
+            </nav>
+        </header>
+        <!-- End Header -->
+        <div class="slider" onload="slider()" id="content">
+            <img src="images/image01.jpg" id="slideImg" style="width: 100%;">
+            <div class="container position-absolute top-50 start-50 translate-middle">
+                <p class="h3 p-5 m-5 text-center" style="background-color: white; color: black;">Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.</p>
+            </div>
+        </div>        
+        <!-- Begin footer -->
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container text-center">
+                <span class="text-muted">
+                    © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
+                </span> 
+            </div>
+        </footer>
+        <!-- End footer -->
+        <script>
+            var slideImg = document.getElementById("slideImg");
+    
+            var images = [
+                "images/image01.jpg",
+                "images/image02.jpg",
+                "images/image03.jpg"
+            ];
+    
+            var len = images.length;
+            var i = 0;
+    
+            function slider() {
+                if (i > len - 1) {
+                    i = 0;
+                }
+                slideImg.src = images[i];
+                i++;
+                setTimeout(slider, 3000);
+            }
+            window.onload = slider;
+        </script>
+         <script src="settings.js"></script>
+    </body>
+</html>

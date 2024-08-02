@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student management system</title>
+        <!-- CSS link -->
+        <link href="css/header.css" rel="stylesheet">
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap JS and jQuery CDN links -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>   
+    </head>
+    <body class="d-flex flex-column h-100">
+         <!-- Begin Header -->
+         <header class="header" style="background-color: black;">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light p-4">
+                <a class="h3 text-decoration-none" href="home.html">
+                    <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"> Barnett College
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="ms-auto">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="display.html">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="edit.html">Edit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="delete.html">Delete</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="add.html">+New Student</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="settings.html">Settings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                
+            </nav>
+        </header>
+        <!-- End Header -->
+        <!-- Begin Display Table -->
+        <div class="table-container" style="margin: 140px 30px 30px;" id="displayForm">
+            <form class="form-inline my-2 my-lg-0 ml-3">
+                <div class="input-group">
+                    <select class="mx-2 btn btn-light rounded" id="searchOption">
+                        <option value="SID">StudentID</option>
+                        <option value="firstname">First Name</option>
+                        <option value="lastname">Last Name</option>
+                        <option value="email">Email</option>
+                        <option value="city">Near City</option>
+                        <option value="course">Course</option>
+                        <option value="guardian">Guardian</option>
+                    </select>
+                    <input class="form-control" type="search" placeholder="Search here..." aria-label="Search" id="searchInput">
+                    <button class="btn btn-outline my-2 my-sm-0" type="button" id="searchBtn">Search</button>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">SID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Near City</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Guardian</th>
+                    <th scope="col">Subjects</th>
+                </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                <!-- Student data will be displayed here dynamically -->
+                </tbody>
+            </table>
+        </div>
+        <!-- Begin footer -->
+        <footer class="footer mt-auto py-3 bg-light sticky">
+            <div class="container text-center">
+                <span class="text-muted">
+                    © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
+                </span> 
+            </div>
+        </footer>
+        <!-- End footer -->
+        <script>
+            $(document).ready(function () {
+                // Fetch all students on page load
+                fetchAllStudents();
+
+                // Function to fetch all students
+                function fetchAllStudents() {
+                    $.ajax({
+                        url: `http://localhost:3000/students`,
+                        method: 'GET',
+                        success: function (data) {
+                            displayStudents(data);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error fetching students:', error);
+                            console.log('Response:', xhr.responseText);
+                            
+                        }
+                    });
+                }
+
+                // Function to display students in the table
+                function displayStudents(students) {
+                    // Clear existing data
+                    $('#studentTableBody').empty();
+
+                        students.forEach(function (student) {
+                        $('#studentTableBody').append(`
+                            <tr>
+                                <td>${student.SID}</td>
+                                <td>${student.firstName}</td>
+                                <td>${student.lastName}</td>
+                                <td>${student.email}</td>
+                                <td>${student.nearCity}</td>
+                                <td>${student.course}</td>
+                                <td>${student.guardian}</td>
+                                <td>${student.subject ? student.subject.join(', ') : ''}</td>
+                            </tr>
+                        `);
+                    });
+                }
+                // Set up the click event handler for the search button
+                $('#searchBtn').click(function () {
+                    var searchValue = $('#searchInput').val().trim();
+                    var searchOption = $('#searchOption').val();
+
+                    // Construct the URL for search
+                    var searchUrl = `http://localhost:3000/students/search/${searchOption}/${searchValue}`;
+
+                    // Fetch and display students based on the search value
+                    fetch(searchUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Response Data:', data);
+                            // Call the displayStudents function with the retrieved data
+                            displayStudents(data);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching students:', error.message);
+                            alert(`Error fetching students: ${error.message}`);
+                            console.log('Search Option:', searchOption);
+                            console.log('Search Value:', searchValue);
+                            console.log('Search URL:', searchUrl);
+                    });
+                });
+            });
+            
+        </script>
+       <script src="settings.js"></script>
+    </body>
+</html>

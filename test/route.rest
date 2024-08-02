@@ -1,0 +1,20 @@
+GET http://localhost:3000
+
+###
+
+GET http://localhost:3000/students
+
+###
+
+POST http://localhost:3000/students
+
+###
+
+DELETE http://localhost:3000/students/1000
+
+###
+
+PUT http://localhost:3000/students/update/1001
+
+###
+GET http://localhost:3000/students/search/SID/1000

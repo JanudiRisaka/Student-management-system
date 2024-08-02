@@ -1,0 +1,104 @@
+:root {
+    --light-bg: #e3f2fd;
+    --light-text: #000000;
+    --dark-bg: #121212;
+    --dark-text: #ffffff;
+    --accent-color: #0E86D4;
+}
+
+body {
+    background: linear-gradient(to bottom, var(--light-bg), var(--accent-color));
+    color: var(--light-text);
+    min-height: 694px;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    color: #000000 !important;
+    background-color: var(--light-bg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: large;
+    transition: background-color 0.3s ease; 
+}
+
+#content {
+    margin-top: 100px;
+}
+
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.table thead th {
+    border-top: none;
+}
+
+#custom-btn {
+    background-color: #0E86D4;
+    color: #e3f2fd;
+}
+
+#form {
+    width: 400px;
+    background-color: white;
+    border-radius: 8px;
+}
+#searchForm {
+    background-color: #fff;
+    border-radius: 8px;
+}
+button[type=button] {
+    background-color: #0E86D4;
+    color: white;
+}
+
+#settings {
+    background-color: #0E86D4;
+    color: #e3f2fd;
+    border-radius: 8px;
+    margin: 0 25% 20px 25%;
+    padding: 1px 0 1px 0;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+header.dark-mode {
+    background-color: #1c1c1c;
+    color: #ffffff !important;
+}
+#content.dark-mode {
+    color: #e3f2fd;
+    background-color: #1c1c1c;
+}
+#form.dark-mode {
+    background-color: #1c1c1c;
+    color: white;
+}
+#form.dark-mode .form-check-label,
+#form.dark-mode .form-label,
+#form.dark-mode .form-select,
+#form.dark-mode .btn-primary{
+    color: white;
+}
+body.-modarkde .navbar-nav .nav-link {
+    color: #ffffff; /* White text color for dark mode links */
+}
+
+.searchForm-dark , #fontSelector, #fontSizeSelector{
+ background-color: #000000 !important;
+}
