@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script>
+            (function () {
+                try {
+                    if (localStorage.getItem('darkMode') === 'true') {
+                        document.documentElement.classList.add('dark-mode');
+                    }
+                } catch (error) {
+                    console.error('Unable to load theme preference.');
+                }
+            })();
+        </script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Student management system</title>
@@ -11,7 +23,7 @@
         <!-- Bootstrap JS and jQuery CDN links -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     </head>
     <body class="d-flex flex-column h-100">
          <!-- Begin Header -->
@@ -46,7 +58,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>                
+                </div>
             </nav>
         </header>
         <!-- End Header -->
@@ -55,28 +67,28 @@
             <div class="container position-absolute top-50 start-50 translate-middle">
                 <p class="h3 p-5 m-5 text-center" style="background-color: white; color: black;">Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.</p>
             </div>
-        </div>        
+        </div>
         <!-- Begin footer -->
         <footer class="footer mt-auto py-3 bg-light">
             <div class="container text-center">
                 <span class="text-muted">
                     © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
-                </span> 
+                </span>
             </div>
         </footer>
         <!-- End footer -->
         <script>
             var slideImg = document.getElementById("slideImg");
-    
+
             var images = [
                 "images/image01.jpg",
                 "images/image02.jpg",
                 "images/image03.jpg"
             ];
-    
+
             var len = images.length;
             var i = 0;
-    
+
             function slider() {
                 if (i > len - 1) {
                     i = 0;

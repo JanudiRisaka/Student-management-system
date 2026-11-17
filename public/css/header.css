@@ -1,37 +1,92 @@
+
+/* =====================================================
+   Student Management System
+   Global Stylesheet
+   ===================================================== */
+
+/* =====================================================
+   1. CSS Variables
+   ===================================================== */
+
 :root {
     --light-bg: #e3f2fd;
     --light-text: #000000;
+
     --dark-bg: #121212;
-    --dark-text: #ffffff;
+    --dark-surface: #1e1e1e;
+    --dark-input: #2b2b2b;
+    --dark-text: #e8e8e8;
+
     --accent-color: #0E86D4;
 }
 
-body {
-    background: linear-gradient(to bottom, var(--light-bg), var(--accent-color));
-    color: var(--light-text);
-    min-height: 694px;
-    min-width: 1024px;
-    width: 100%;
-    height: auto;
-    transition: background-color 0.3s ease, color 0.3s ease;
+
+/* =====================================================
+   2. Default Light Theme
+   ===================================================== */
+
+html {
+    min-height: 100%;
 }
+
+body {
+    background: linear-gradient(
+        to bottom,
+        var(--light-bg),
+        var(--accent-color)
+    );
+
+    background-attachment: fixed;
+
+    color: var(--light-text);
+
+    min-height: 694px;
+    width: 100%;
+    margin: 0;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+
+/* =====================================================
+   3. Header and Navigation
+   ===================================================== */
 
 header {
     color: #000000 !important;
     background-color: var(--light-bg);
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
     font-size: large;
-    transition: background-color 0.3s ease; 
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
+
+
+/* =====================================================
+   4. Main Content
+   ===================================================== */
 
 #content {
     margin-top: 100px;
 }
 
+
+/* =====================================================
+   5. Tables
+   ===================================================== */
+
 .table-container {
     background: white;
+
     padding: 20px;
     border-radius: 10px;
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -44,61 +99,234 @@ header {
     border-top: none;
 }
 
-#custom-btn {
-    background-color: #0E86D4;
-    color: #e3f2fd;
-}
+
+/* =====================================================
+   6. Forms
+   ===================================================== */
 
 #form {
     width: 400px;
+
     background-color: white;
+
     border-radius: 8px;
 }
+
 #searchForm {
     background-color: #fff;
     border-radius: 8px;
 }
+
+
+/* =====================================================
+   7. Buttons
+   ===================================================== */
+
+#custom-btn {
+    background-color: var(--accent-color);
+    color: var(--light-bg);
+}
+
 button[type=button] {
-    background-color: #0E86D4;
+    background-color: var(--accent-color);
     color: white;
 }
 
+
+/* =====================================================
+   8. Settings Container
+   ===================================================== */
+
 #settings {
-    background-color: #0E86D4;
-    color: #e3f2fd;
+    background-color: var(--accent-color);
+    color: var(--light-bg);
+
     border-radius: 8px;
+
     margin: 0 25% 20px 25%;
-    padding: 1px 0 1px 0;
+    padding: 1px 0;
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    background: var(--dark-bg);
+
+/* =====================================================
+   9. Dark Mode - Global Background
+   ===================================================== */
+
+/*
+   IMPORTANT:
+   The original gradient belongs to BODY.
+   Override BODY directly to remove it.
+*/
+
+html.dark-mode {
+    background-color: var(--dark-bg) !important;
+}
+
+html.dark-mode body {
+    background: var(--dark-bg) !important;
+    background-image: none !important;
+
+    color: var(--dark-text) !important;
+}
+
+
+/* =====================================================
+   10. Dark Mode - Header and Navigation
+   ===================================================== */
+
+html.dark-mode header,
+html.dark-mode .navbar,
+html.dark-mode .navbar.bg-light {
+    background-color: var(--dark-surface) !important;
+    color: #ffffff !important;
+}
+
+html.dark-mode header a,
+html.dark-mode .navbar a,
+html.dark-mode .navbar .nav-link,
+html.dark-mode .navbar .h3 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .navbar .nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+html.dark-mode .navbar-toggler {
+    border-color: #ffffff;
+}
+
+html.dark-mode .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+
+/* =====================================================
+   11. Dark Mode - Main Content
+   ===================================================== */
+
+html.dark-mode #content {
     color: var(--dark-text);
 }
 
-header.dark-mode {
-    background-color: #1c1c1c;
-    color: #ffffff !important;
-}
-#content.dark-mode {
-    color: #e3f2fd;
-    background-color: #1c1c1c;
-}
-#form.dark-mode {
-    background-color: #1c1c1c;
-    color: white;
-}
-#form.dark-mode .form-check-label,
-#form.dark-mode .form-label,
-#form.dark-mode .form-select,
-#form.dark-mode .btn-primary{
-    color: white;
-}
-body.-modarkde .navbar-nav .nav-link {
-    color: #ffffff; /* White text color for dark mode links */
+
+/* =====================================================
+   12. Dark Mode - Forms and Containers
+   ===================================================== */
+
+html.dark-mode #form,
+html.dark-mode #searchForm,
+html.dark-mode #settings,
+html.dark-mode .table-container,
+html.dark-mode .card {
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
 }
 
-.searchForm-dark , #fontSelector, #fontSizeSelector{
- background-color: #000000 !important;
+html.dark-mode label,
+html.dark-mode .form-label,
+html.dark-mode .form-check-label,
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6 {
+    color: var(--dark-text);
+}
+
+
+/* =====================================================
+   13. Dark Mode - Form Inputs
+   ===================================================== */
+
+html.dark-mode .form-control,
+html.dark-mode .form-select {
+    background-color: var(--dark-input) !important;
+    color: #ffffff !important;
+
+    border-color: #555555 !important;
+}
+
+html.dark-mode .form-control::placeholder {
+    color: #aaaaaa;
+}
+
+html.dark-mode .form-control:focus,
+html.dark-mode .form-select:focus {
+    border-color: var(--accent-color) !important;
+
+    box-shadow: 0 0 0 0.2rem rgba(14, 134, 212, 0.25);
+}
+
+
+/* =====================================================
+   14. Dark Mode - Tables
+   ===================================================== */
+
+html.dark-mode .table {
+    --bs-table-bg: var(--dark-surface);
+    --bs-table-color: var(--dark-text);
+    --bs-table-border-color: #444444;
+
+    --bs-table-striped-bg: #292929;
+    --bs-table-striped-color: #ffffff;
+
+    --bs-table-hover-bg: #333333;
+    --bs-table-hover-color: #ffffff;
+
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
+}
+
+html.dark-mode .table th,
+html.dark-mode .table td {
+    color: var(--dark-text) !important;
+    border-color: #444444 !important;
+}
+
+
+/* =====================================================
+   15. Dark Mode - Buttons
+   ===================================================== */
+
+html.dark-mode .btn-primary,
+html.dark-mode #custom-btn,
+html.dark-mode button[type=button] {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   16. Dark Mode - Footer
+   ===================================================== */
+
+html.dark-mode footer,
+html.dark-mode footer.bg-light {
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-text) !important;
+}
+
+html.dark-mode footer .text-muted {
+    color: #bbbbbb !important;
+}
+
+
+/* =====================================================
+   17. Smooth Theme Transitions
+   ===================================================== */
+
+body,
+header,
+footer,
+.navbar,
+#form,
+#searchForm,
+#settings,
+.table-container {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
