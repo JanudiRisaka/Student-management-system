@@ -215,7 +215,8 @@ app.post('/students', async (req, res) => {
             error.message.includes('Invalid') ||
             error.message.includes('required') ||
             error.message.includes('cannot exceed') ||
-            error.message.includes('must be')
+            error.message.includes('must be') ||
+            error.message.includes('valid email address')
         ) {
             return res.status(400).json({
                 message: error.message
@@ -290,6 +291,13 @@ app.put('/students/update/:option', async (req, res) => {
             });
         }
 
+        // Student ID is immutable and cannot be updated.
+        if (Object.prototype.hasOwnProperty.call(req.body, 'SID')) {
+            return res.status(400).json({
+                message: 'Student ID cannot be updated.'
+            });
+        }
+
         const updateData = sanitizeStudentInput(req.body);
 
         if (Object.keys(updateData).length === 0) {
@@ -321,7 +329,8 @@ app.put('/students/update/:option', async (req, res) => {
         if (
             error.message.includes('Invalid') ||
             error.message.includes('cannot exceed') ||
-            error.message.includes('must be')
+            error.message.includes('must be') ||
+            error.message.includes('valid email address')
         ) {
             return res.status(400).json({
                 message: error.message
