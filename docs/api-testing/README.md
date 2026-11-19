@@ -112,7 +112,7 @@ The automated test runner can delete existing student records from the configure
 From the project root, execute:
 
 ```bash
-node scripts/run-api-tests.js
+npm test
 ```
 
 The runner automatically:

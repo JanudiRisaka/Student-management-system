@@ -22,6 +22,13 @@ Testing is performed using Postman against the locally running backend applicati
 | Request Format | JSON |
 | HTTP Protocol | HTTP |
 
+**Testing environment note:**
+
+- **Manual Postman testing:** Uses the locally running API server at `http://localhost:3000`.
+- **Automated Newman testing:** Uses a separate API server at `http://127.0.0.1:3001`, configured through `.env.test` and the automated test runner.
+
+The automated test runner uses a dedicated MongoDB Atlas test database (`stu-management-test`) to isolate test data from the development database.
+
 ## 3. Test Case Conventions
 
 The following HTTP response codes are used throughout the test cases:

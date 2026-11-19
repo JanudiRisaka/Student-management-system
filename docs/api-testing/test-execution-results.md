@@ -52,7 +52,7 @@ The original failures for API-106 and API-108 are retained in the historical tes
 The automated test suite was executed using:
 
 ```bash
-node scripts/run-api-tests.js
+npm test
 ```
 
 The runner uses a separate MongoDB Atlas test database (`stu-management-test`) and starts the API server on port `3001`.
@@ -66,8 +66,8 @@ The runner uses a separate MongoDB Atlas test database (`stu-management-test`) a
 | Total Assertions | 180 |
 | Passed Assertions | 180 |
 | Failed Assertions | 0 |
-| Execution Time | 31 seconds |
-| Average Response Time | 57 ms |
+| Execution Time | 29.8 seconds |
+| Average Response Time | 52 ms |
 
 **Overall Result: PASS**
 
