@@ -2,29 +2,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Add Student | Barnett College</title>
-
-    <!-- Apply saved dark mode before rendering -->
+    <!-- Apply saved theme before the page renders -->
     <script>
         (function () {
             try {
-                if (localStorage.getItem("darkMode") === "true") {
-                    document.documentElement.classList.add("dark-mode");
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.documentElement.classList.add('dark-mode');
                 }
             } catch (error) {
-                console.error("Unable to load theme preference.");
+                console.error('Unable to load theme preference.');
             }
         })();
     </script>
 
+    <!-- Basic metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System | Barnett College</title>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Application CSS -->
+    <!-- Custom CSS (must load after Bootstrap) -->
     <link href="css/main.css" rel="stylesheet">
+
+    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -32,23 +34,26 @@
     <!-- Navigation -->
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
 
-                <a class="navbar-brand d-flex align-items-center gap-2" href="home.html">
+            <!-- College brand -->
+            <a class="h3 text-decoration-none" href="home.html">
+                <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"
+                    alt="Barnett College Logo">
+                Barnett College
+            </a>
 
-                    <img src="images/logo.png" width="40" height="40" alt="Barnett College logo">
+            <!-- Mobile hamburger button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
 
-                    <span>Barnett College</span>
-                </a>
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
+            <!-- Navigation links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="ms-auto">
+                    <ul class="navbar-nav">
 
                         <li class="nav-item">
                             <a class="nav-link" href="home.html">Home</a>
@@ -67,9 +72,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="add.html">
-                                + New Student
-                            </a>
+                            <a class="nav-link active" href="add.html" aria-current="page">+New Student</a>
                         </li>
 
                         <li class="nav-item">
@@ -79,9 +82,10 @@
                     </ul>
                 </div>
             </div>
+
         </nav>
     </header>
-
+    <!-- End Navigation -->
     <!-- Main content -->
     <main class="flex-grow-1">
 
@@ -119,7 +123,7 @@
                             </label>
 
                             <input type="email" class="form-control" id="email" name="email"
-                                placeholder="student@example.com" required>
+                                placeholder="student@example.com" maxlength="254" required>
                         </div>
 
                         <!-- First Name -->
@@ -129,7 +133,7 @@
                             </label>
 
                             <input type="text" class="form-control" id="firstName" name="firstName"
-                                placeholder="Enter first name" required>
+                                placeholder="Enter first name" maxlength="50" required>
                         </div>
 
                         <!-- Last Name -->
@@ -139,7 +143,7 @@
                             </label>
 
                             <input type="text" class="form-control" id="lastName" name="lastName"
-                                placeholder="Enter last name" required>
+                                placeholder="Enter last name" maxlength="50" required>
                         </div>
 
                         <!-- City -->
@@ -149,7 +153,7 @@
                             </label>
 
                             <input type="text" class="form-control" id="city" name="city"
-                                placeholder="Enter nearest city" required>
+                                placeholder="Enter nearest city" maxlength="100" required>
                         </div>
 
                         <!-- Guardian -->
@@ -159,7 +163,7 @@
                             </label>
 
                             <input type="text" class="form-control" id="guardian" name="guardian"
-                                placeholder="Enter guardian name" required>
+                                placeholder="Enter guardian name" maxlength="100" required>
                         </div>
 
                         <!-- Course -->
@@ -169,11 +173,11 @@
                             </label>
 
                             <input type="text" class="form-control" id="course" name="course" placeholder="Enter course"
-                                required>
+                                maxlength="100" required>
                         </div>
 
                         <!-- Subjects -->
-                        <div class="form-group">
+                        <div class="form-group full-width">
                             <label for="subject" class="form-label">
                                 Subjects
                             </label>
@@ -271,9 +275,35 @@
                         .filter(subject => subject !== "")
                 };
 
+                // Validate required text fields.
+                const requiredFields = [
+                    studentData.firstName,
+                    studentData.lastName,
+                    studentData.email,
+                    studentData.nearCity,
+                    studentData.course,
+                    studentData.guardian
+                ];
+
+                if (requiredFields.some(value => value === "")) {
+                    showFeedback(
+                        "Please complete all required fields.",
+                        "warning"
+                    );
+                    return;
+                }
+
                 if (studentData.subject.length === 0) {
                     showFeedback(
                         "Please enter at least one subject.",
+                        "warning"
+                    );
+                    return;
+                }
+
+                if (studentData.subject.some(subject => subject.length > 100)) {
+                    showFeedback(
+                        "Each subject must not exceed 100 characters.",
                         "warning"
                     );
                     return;

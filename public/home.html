@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Barnett College | Student Management System</title>
-
-    <!-- Apply saved dark mode before the page renders -->
+    <!-- Apply saved theme before the page renders -->
     <script>
         (function () {
             try {
-                if (localStorage.getItem("darkMode") === "true") {
-                    document.documentElement.classList.add("dark-mode");
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.documentElement.classList.add('dark-mode');
                 }
             } catch (error) {
-                console.error("Unable to load theme preference.");
+                console.error('Unable to load theme preference.');
             }
         })();
     </script>
 
-    <!-- Bootstrap CSS -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <!-- Basic metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System | Barnett College</title>
 
-    <!-- Application CSS -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS (must load after Bootstrap) -->
     <link href="css/main.css" rel="stylesheet">
+
+    <!-- jQuery: required by pages using $ or jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -34,82 +39,58 @@
     <!-- Navigation -->
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
 
-                <a class="navbar-brand d-flex align-items-center gap-2"
-                   href="home.html">
+            <!-- College brand -->
+            <a class="h3 text-decoration-none" href="home.html">
+                <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"
+                    alt="Barnett College Logo">
+                Barnett College
+            </a>
 
-                    <img
-                        src="images/logo.png"
-                        width="40"
-                        height="40"
-                        alt="Barnett College logo"
-                    >
+            <!-- Mobile hamburger button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
 
-                    <span>Barnett College</span>
-                </a>
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
-                    <ul class="navbar-nav ms-auto">
+            <!-- Navigation links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="ms-auto">
+                    <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link active"
-                               aria-current="page"
-                               href="home.html">
-                                Home
-                            </a>
+                            <a class="nav-link active" href="home.html" aria-current="page">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="display.html">
-                                Students
-                            </a>
+                            <a class="nav-link" href="display.html">Students</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="edit.html">
-                                Edit
-                            </a>
+                            <a class="nav-link" href="edit.html">Edit</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="delete.html">
-                                Delete
-                            </a>
+                            <a class="nav-link" href="delete.html">Delete</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="add.html">
-                                + New Student
-                            </a>
+                            <a class="nav-link" href="add.html">+New Student</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="settings.html">
-                                Settings
-                            </a>
+                            <a class="nav-link" href="settings.html">Settings</a>
                         </li>
 
                     </ul>
                 </div>
             </div>
+
         </nav>
     </header>
+    <!-- End Navigation -->
 
     <!-- Main content -->
     <main class="flex-grow-1">
@@ -117,11 +98,7 @@
         <!-- Hero image slider -->
         <section class="home-hero" aria-label="Welcome to Barnett College">
 
-            <img
-                src="images/image01.jpg"
-                id="slideImg"
-                alt="Barnett College campus"
-            >
+            <img src="images/image01.jpg" id="slideImg" alt="Barnett College campus">
 
             <div class="hero-content">
                 <h1>Welcome to Barnett College</h1>
@@ -187,4 +164,5 @@
     </script>
 
 </body>
+
 </html>

@@ -1,111 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script>
-            (function () {
-                try {
-                    if (localStorage.getItem('darkMode') === 'true') {
-                        document.documentElement.classList.add('dark-mode');
-                    }
-                } catch (error) {
-                    console.error('Unable to load theme preference.');
+
+<head>
+    <!-- Apply saved theme before the page renders -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.documentElement.classList.add('dark-mode');
                 }
-            })();
-        </script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Student management system</title>
-        <!-- CSS link -->
-        <link href="css/header.css" rel="stylesheet">
-        <!-- Bootstrap CSS link -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap JS and jQuery CDN links -->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    </head>
-    <body class="d-flex flex-column h-100">
-         <!-- Begin Header -->
-         <header class="header" style="background-color: black;">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light p-4">
-                <a class="h3 text-decoration-none" href="home.html">
-                    <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"> Barnett College
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="ms-auto">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="home.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="display.html">Students</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="edit.html">Edit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="delete.html">Delete</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="add.html">+New Student</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="settings.html">Settings</a>
-                            </li>
-                        </ul>
-                    </div>
+            } catch (error) {
+                console.error('Unable to load theme preference.');
+            }
+        })();
+    </script>
+
+    <!-- Basic metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System | Barnett College</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS (must load after Bootstrap) -->
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- jQuery: required by pages using $ or jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <!-- College brand -->
+            <a class="h3 text-decoration-none" href="home.html">
+                <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"
+                    alt="Barnett College Logo">
+                Barnett College
+            </a>
+
+            <!-- Mobile hamburger button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="ms-auto">
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="display.html">Students</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="edit.html">Edit</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="delete.html" aria-current="page">Delete</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="add.html">+New Student</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">Settings</a>
+                        </li>
+
+                    </ul>
                 </div>
-            </nav>
-        </header>
-        <!-- End Header -->
-        <!-- Begin Display form -->
-        <div class="container p-5" id="content">
-            <div class="row justify-content-center">
-                <div class="col-xs-6 block2 center p-3 " id="form">
-                    <h3 class="mb-5 pt-4 text-center">Delete Student</h3>
-                    <form id="deleteForm" class="form">
-                        <div class="form-group mb-4">
-                            <label for="studentSid" class="form-label">Enter Student SID:</label>
-                            <input type="number" class="form-control" id="studentSid" aria-describedby="studentSidHelp">
+            </div>
+
+        </nav>
+    </header>
+    <!-- End Navigation -->
+    <!-- Begin Display form -->
+
+    <!-- Delete Student Section -->
+    <main class="flex-grow-1">
+        <section class="delete-student-page">
+
+            <!-- Page heading -->
+            <div class="mb-4">
+                <h1 class="page-heading">Delete Student</h1>
+                <p class="page-description">
+                    Remove a student record from the system.
+                </p>
+            </div>
+
+            <!-- Delete card -->
+            <div class="delete-student-card">
+
+                <div class="card-header">
+                    <h2 class="h5 mb-0">Student Removal</h2>
+                </div>
+
+                <div class="card-body">
+
+                    <!-- Warning message -->
+                    <div class="delete-student-warning" role="note">
+                        <strong>Important:</strong>
+                        Deleting a student is permanent. Please verify the
+                        Student ID before proceeding.
+                    </div>
+
+                    <!-- Feedback messages -->
+                    <div id="deleteFeedback" class="alert d-none" role="alert" aria-live="polite">
+                    </div>
+
+                    <!-- Delete form -->
+                    <form id="deleteForm" class="delete-student-form">
+
+                        <div class="mb-3">
+                            <label for="studentSid" class="form-label">
+                                Student ID (SID)
+                            </label>
+
+                            <input type="number" class="form-control" id="studentSid" name="studentSid" min="1" step="1"
+                                placeholder="Enter student ID" required>
+
+                            <div class="form-text">
+                                Enter the SID of the student you want to remove.
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-primary" id="deleteBtn">Delete</button>
+
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-secondary">
+                                Clear
+                            </button>
+
+                            <button type="submit" class="btn btn-danger" id="deleteBtn">
+                                Delete Student
+                            </button>
+                        </div>
+
                     </form>
                 </div>
             </div>
+
+        </section>
+    </main>
+    <!-- End Delete Student Section -->
+
+    <!-- End Display form-->
+    <!-- Begin footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">
+                © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets
+                inclusive academic excellence.
+            </span>
         </div>
-        <!-- End Display form-->
-        <!-- Begin footer -->
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container text-center">
-                <span class="text-muted">
-                    © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
-                </span>
-            </div>
-        </footer>
-        <!-- End footer -->
-        <script>
-            $(document).ready(function () {
-            // Set up the click event handler for the delete button
-            $('#deleteBtn').click(function () {
-                var studentSid = $('#studentSid').val();
+    </footer>
+    <!-- End footer -->
+    <script>
+
+        $(document).ready(function () {
+            const deleteForm = $('#deleteForm');
+            const studentSidInput = $('#studentSid');
+            const deleteBtn = $('#deleteBtn');
+            const feedback = $('#deleteFeedback');
+
+            function showFeedback(message, type) {
+                feedback
+                    .removeClass('d-none alert-success alert-danger alert-warning')
+                    .addClass(`alert-${type}`)
+                    .text(message);
+            }
+
+            function clearFeedback() {
+                feedback
+                    .addClass('d-none')
+                    .removeClass('alert-success alert-danger alert-warning')
+                    .text('');
+            }
+
+            // Clear feedback when the form is reset.
+            deleteForm.on('reset', function () {
+                clearFeedback();
+            });
+
+            // Handle student deletion.
+            deleteForm.on('submit', function (event) {
+                event.preventDefault();
+                clearFeedback();
+
+                const studentSid = Number(studentSidInput.val());
+
+                // Validate SID.
+                if (
+                    !Number.isSafeInteger(studentSid) ||
+                    studentSid <= 0
+                ) {
+                    showFeedback(
+                        'Please enter a valid positive Student ID.',
+                        'danger'
+                    );
+                    studentSidInput.trigger('focus');
+                    return;
+                }
+
+                // Confirm permanent deletion.
+                const confirmed = window.confirm(
+                    `Are you sure you want to permanently delete student ${studentSid}? This action cannot be undone.`
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                // Prevent repeated submissions.
+                deleteBtn.prop('disabled', true);
+                deleteBtn.text('Deleting...');
+
                 $.ajax({
                     url: `http://localhost:3000/students/${studentSid}`,
                     method: 'DELETE',
-                    success: function (data) {
-                        console.log('Delete Response Data:', data);
-                        alert('Student deleted successfully.');
+
+                    success: function () {
+                        studentSidInput.val('');
+                        showFeedback(
+                            `Student ${studentSid} was deleted successfully.`,
+                            'success'
+                        );
                     },
+
                     error: function (xhr, status, error) {
-                        console.log('Error deleting student:', xhr.responseText);
-                        alert(`Error deleting student: ${status} - ${error}`);
+                        let message = 'Unable to delete the student. Please try again.';
+
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        } else if (status === 'error' && !xhr.status) {
+                            message = 'Unable to connect to the server. Please check your connection.';
+                        }
+
+                        showFeedback(message, 'danger');
+
+                        console.error('Delete error:', {
+                            status: xhr.status,
+                            response: xhr.responseText,
+                            error: error
+                        });
+                    },
+
+                    complete: function () {
+                        deleteBtn.prop('disabled', false);
+                        deleteBtn.text('Delete Student');
                     }
                 });
-                });
             });
-        </script>
-        <script src="settings.js"></script>
-    </body>
+        });
+    </script>
+    <script src="settings.js"></script>
+</body>
+
 </html>

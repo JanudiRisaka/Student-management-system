@@ -1,219 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script>
-            (function () {
-                try {
-                    if (localStorage.getItem('darkMode') === 'true') {
-                        document.documentElement.classList.add('dark-mode');
-                    }
-                } catch (error) {
-                    console.error('Unable to load theme preference.');
-                }
-            })();
-        </script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Student management system</title>
-        <!-- CSS link -->
-        <link href="css/header.css" rel="stylesheet">
-        <!-- Bootstrap CSS link -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap JS and jQuery CDN links -->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    </head>
-    <body class="d-flex flex-column h-100">
-         <!-- Begin Header -->
-         <header class="header" style="background-color: black;">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light p-4">
-                <a class="h3 text-decoration-none" href="home.html">
-                    <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"> Barnett College
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="ms-auto">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="home.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="display.html">Students</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="edit.html">Edit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="delete.html">Delete</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="add.html">+New Student</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="settings.html">Settings</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <!-- End Header -->
-        <!-- Begin Display form -->
-        <div class="container p-5" id="content">
-            <div class="row justify-content-center" id="searchForm">
-                <div class="col-xs-6 block2 center p-3" style="width: 700px;border-radius: 8px;">
-                    <h3 class="mb-5 pt-4 text-center">Edit Student Details</h3>
-                    <form id="searchForm" class="form">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <select class="mx-2 btn btn-light rounded" id="searchOption">
-                                    <option value="SID">StudentID</option>
-                                    <option value="firstname">First Name</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="searchInput" aria-describedby="studentSidHelp">
-                            </div>
-                            <div class="col-md-3 text-md-left text-center">
-                                <button type="submit" class="btn btn-primary" id="search-btn">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                    <form id="updateForm" id="form">
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Student ID:</label>
-                                <input type="text" class="form-control" id="SID" aria-describedby="" disabled>
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Email:</label>
-                                <input type="text" class="form-control" id="email" aria-describedby="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter First Name:</label>
-                                <input type="text" class="form-control" id="firstName" aria-describedby="">
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Last Name:</label>
-                                <input type="text" class="form-control" id="lastName" aria-describedby="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Nearest City:</label>
-                                <input type="text" class="form-control" id="city" aria-describedby="">
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Guardian:</label>
-                                <input type="text" class="form-control" id="guardian" aria-describedby="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Courses:</label>
-                                <input type="text" class="form-control" id="course" aria-describedby="">
-                            </div>
 
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Subjects:</label>
-                                <input type="text" class="form-control" id="subject" aria-describedby="">
-                            </div>
+<head>
+    <!-- Apply saved theme before the page renders -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.documentElement.classList.add('dark-mode');
+                }
+            } catch (error) {
+                console.error('Unable to load theme preference.');
+            }
+        })();
+    </script>
+
+    <!-- Basic metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System | Barnett College</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS (must load after Bootstrap) -->
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- jQuery: required by pages using $ or jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <!-- College brand -->
+            <a class="h3 text-decoration-none" href="home.html">
+                <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"
+                    alt="Barnett College Logo">
+                Barnett College
+            </a>
+
+            <!-- Mobile hamburger button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="ms-auto">
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="display.html">Students</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="edit.html" aria-current="page">Edit</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="delete.html">Delete</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="add.html">+New Student</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">Settings</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+    <!-- End Navigation -->
+
+    <!-- Main content -->
+    <main class="flex-grow-1">
+
+        <section class="edit-student-page">
+
+            <!-- Page heading -->
+            <div class="mb-4">
+                <h1 class="page-heading">Edit Student</h1>
+
+                <p class="page-description">
+                    Search for a student and update their information.
+                </p>
+            </div>
+
+            <!-- Search card -->
+            <div class="edit-student-search-card card">
+
+                <div class="card-header">
+                    <h2 class="h5 mb-1">Find a Student</h2>
+
+                    <p class="text-muted mb-0">
+                        Enter a student ID or first name to find a record.
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                    <div id="searchFeedback" class="mb-4" role="status" aria-live="polite" hidden>
+                    </div>
+
+                    <form id="searchForm" class="edit-student-search" novalidate>
+
+                        <div class="form-group">
+                            <label for="searchOption" class="form-label">
+                                Search By
+                            </label>
+
+                            <select class="form-select" id="searchOption" name="searchOption">
+                                <option value="SID">Student ID</option>
+                                <option value="firstname">First Name</option>
+                            </select>
                         </div>
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-primary px-5" id="updateBtn">Edit</button>
+
+                        <div class="form-group">
+                            <label for="searchInput" class="form-label">
+                                Search Value
+                            </label>
+
+                            <input type="text" class="form-control" id="searchInput" name="searchInput"
+                                placeholder="Enter student ID or first name" required>
                         </div>
+
+                        <button type="submit" class="btn btn-primary" id="searchBtn">
+                            Search Student
+                        </button>
+
                     </form>
                 </div>
             </div>
-        </div>
-        <!-- Begin footer -->
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container text-center">
-                <span class="text-muted">
-                    © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
-                </span>
+
+            <!-- Student information card -->
+            <div class="edit-student-form-card card" id="studentFormCard" hidden>
+
+                <div class="card-header">
+                    <h2 class="h5 mb-1">Student Information</h2>
+
+                    <p class="text-muted mb-0">
+                        Update the student's details below.
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                    <div id="editFeedback" class="mb-4" role="status" aria-live="polite" hidden>
+                    </div>
+
+                    <form id="updateForm" class="edit-student-form" novalidate>
+
+                        <!-- Student ID -->
+                        <div class="form-group">
+                            <label for="SID" class="form-label">
+                                Student ID
+                            </label>
+
+                            <input type="text" class="form-control" id="SID" name="SID" readonly disabled>
+
+                            <div class="form-text">
+                                Student IDs are automatically generated
+                                and cannot be changed.
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email Address
+                            </label>
+
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="student@example.com" maxlength="254" required>
+                        </div>
+
+                        <!-- First name -->
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">
+                                First Name
+                            </label>
+
+                            <input type="text" class="form-control" id="firstName" name="firstName"
+                                placeholder="Enter first name" maxlength="50" required>
+                        </div>
+
+                        <!-- Last name -->
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">
+                                Last Name
+                            </label>
+
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                placeholder="Enter last name" maxlength="50" required>
+                        </div>
+
+                        <!-- City -->
+                        <div class="form-group">
+                            <label for="city" class="form-label">
+                                Nearest City
+                            </label>
+
+                            <input type="text" class="form-control" id="city" name="city"
+                                placeholder="Enter nearest city" maxlength="100" required>
+                        </div>
+
+                        <!-- Guardian -->
+                        <div class="form-group">
+                            <label for="guardian" class="form-label">
+                                Guardian
+                            </label>
+
+                            <input type="text" class="form-control" id="guardian" name="guardian"
+                                placeholder="Enter guardian name" maxlength="100" required>
+                        </div>
+
+                        <!-- Course -->
+                        <div class="form-group">
+                            <label for="course" class="form-label">
+                                Courses
+                            </label>
+
+                            <input type="text" class="form-control" id="course" name="course"
+                                placeholder="e.g. Computer Science" required>
+
+                            <div class="form-text">
+                                Separate multiple courses using commas.
+                            </div>
+                        </div>
+
+                        <!-- Subjects -->
+                        <div class="form-group">
+                            <label for="subject" class="form-label">
+                                Subjects
+                            </label>
+
+                            <input type="text" class="form-control" id="subject" name="subject"
+                                placeholder="e.g. Mathematics, Science" required>
+
+                            <div class="form-text">
+                                Separate multiple subjects using commas.
+                            </div>
+                        </div>
+
+                        <!-- Form actions -->
+                        <div class="form-actions">
+
+                            <a href="display.html" class="btn btn-secondary">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn btn-primary" id="updateBtn">
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
             </div>
-        </footer>
-        <!-- End footer -->
-        <script>
-        $(document).ready(function () {
-            // Set up the click event handler for the search button
-            $('#search-btn').click(function (event) {
-                // Prevent the default form submission behavior
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3">
+
+        <div class="container text-center">
+
+            <p class="mb-1">
+                &copy; 2026 Barnett College. All rights reserved.
+            </p>
+
+            <p class="mb-0">
+                Cultivating brilliance, shaping futures, where
+                innovation meets inclusive academic excellence.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Application settings -->
+    <script src="settings.js"></script>
+
+    <!-- Edit student functionality -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const API_BASE_URL = "http://localhost:3000";
+
+            const searchForm = document.getElementById("searchForm");
+            const updateForm = document.getElementById("updateForm");
+
+            const searchInput = document.getElementById("searchInput");
+            const searchOption = document.getElementById("searchOption");
+
+            const searchBtn = document.getElementById("searchBtn");
+            const updateBtn = document.getElementById("updateBtn");
+
+            const studentFormCard = document.getElementById("studentFormCard");
+
+            const searchFeedback = document.getElementById("searchFeedback");
+            const editFeedback = document.getElementById("editFeedback");
+
+            let selectedStudentSID = null;
+            let searchController = null;
+
+            // Display inline feedback.
+            function showFeedback(element, message, type) {
+                element.hidden = false;
+                element.className = `alert alert-${type} mb-4`;
+                element.textContent = message;
+            }
+
+            function hideFeedback(element) {
+                element.hidden = true;
+                element.textContent = "";
+            }
+
+            // Read the API response safely.
+            async function readResponse(response) {
+                const text = await response.text();
+
+                let data = null;
+
+                try {
+                    data = text ? JSON.parse(text) : null;
+                } catch {
+                    data = null;
+                }
+
+                if (!response.ok) {
+                    throw new Error(
+                        data?.message ||
+                        text ||
+                        `Server returned status ${response.status}`
+                    );
+                }
+
+                return data;
+            }
+
+            // Convert an array into comma-separated text.
+            function arrayToText(value) {
+                if (Array.isArray(value)) {
+                    return value.join(", ");
+                }
+
+                return value || "";
+            }
+
+            // Convert comma-separated text into an array.
+            function textToArray(value) {
+                return value
+                    .split(",")
+                    .map(item => item.trim())
+                    .filter(item => item.length > 0);
+            }
+
+            // Populate the form with student information.
+            function populateStudent(student) {
+
+                selectedStudentSID = student.SID;
+
+                document.getElementById("SID").value = student.SID;
+                document.getElementById("email").value = student.email || "";
+                document.getElementById("firstName").value = student.firstName || "";
+                document.getElementById("lastName").value = student.lastName || "";
+                document.getElementById("city").value = student.nearCity || "";
+                document.getElementById("guardian").value = student.guardian || "";
+
+                document.getElementById("course").value =
+                    arrayToText(student.course);
+
+                document.getElementById("subject").value =
+                    arrayToText(student.subject);
+
+                studentFormCard.hidden = false;
+
+                hideFeedback(editFeedback);
+            }
+
+            // Search for a student.
+            searchForm.addEventListener("submit", async function (event) {
+
                 event.preventDefault();
 
-                var searchValue = $('#searchInput').val().trim();
-                var searchOption = $('#searchOption').val();
+                if (!searchForm.reportValidity()) {
+                    return;
+                }
 
-                // Make an AJAX request to search for the student
-                $.ajax({
-                    url: `http://localhost:3000/students/search/${searchOption}/${searchValue}`,
-                    method: 'GET',
-                    success: function (data) {
-                        console.log('Search Response Data:', data);
+                const searchValue = searchInput.value.trim();
+                const option = searchOption.value;
 
-                        if (data.length > 0) {
-                            var student = data[0];
+                if (!searchValue) {
+                    showFeedback(
+                        searchFeedback,
+                        "Please enter a search value.",
+                        "warning"
+                    );
+                    return;
+                }
 
-                            // Populate the update form fields with the found student details
-                            $('#SID').val(student.SID);
-                            $('#firstName').val(student.firstName);
-                            $('#lastName').val(student.lastName);
-                            $('#email').val(student.email);
-                            $('#city').val(student.nearCity);
-                            $('#course').val(student.course);
-                            $('#guardian').val(student.guardian);
-                            $('#subject').val(student.subject.join(','));
+                if (option === "SID" &&
+                    !/^[1-9]\d*$/.test(searchValue)) {
 
-                            // Optionally, you can disable the SID field to prevent editing
-                            $('#SID').prop('disabled', true);
+                    showFeedback(
+                        searchFeedback,
+                        "Please enter a valid positive Student ID.",
+                        "warning"
+                    );
+                    return;
+                }
 
-                            // Set up the click event handler for the update button
-                            $('#updateBtn').click(function () {
-                                var studentData = {
-                                    firstName: $('#firstName').val(),
-                                    lastName: $('#lastName').val(),
-                                    email: $('#email').val(),
-                                    nearCity: $('#city').val(),
-                                    course: $('#course').val(),
-                                    guardian: $('#guardian').val(),
-                                    subject: $('#subject').val(),
-                                };
+                // Cancel any previous search.
+                if (searchController) {
+                    searchController.abort();
+                }
 
-                                // Make an AJAX request to update the student
-                                $.ajax({
-                                    url: `http://localhost:3000/students/update/${student.SID}`,
-                                    method: 'PUT',
-                                    contentType: 'application/json',
-                                    data: JSON.stringify(studentData),
-                                    success: function (data) {
-                                        console.log('Update Response Data:', data);
-                                        alert('Student updated successfully.');
-                                    },
-                                    error: function (xhr, status, error) {
-                                        console.log('Error updating student:', xhr.responseText);
-                                        alert(`Error updating student: ${status} - ${error}`);
-                                    }
-                                });
-                            });
-                        } else {
-                            alert('No student found with the given SID.');
+                searchController = new AbortController();
+
+                // Clear previous results.
+                selectedStudentSID = null;
+                studentFormCard.hidden = true;
+
+                hideFeedback(editFeedback);
+                hideFeedback(searchFeedback);
+
+                searchBtn.disabled = true;
+                searchBtn.textContent = "Searching...";
+
+                try {
+
+                    const response = await fetch(
+                        `${API_BASE_URL}/students/search/${option}/${encodeURIComponent(searchValue)}`,
+                        {
+                            method: "GET",
+                            signal: searchController.signal
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        console.log('Error searching for student:', xhr.responseText);
-                        alert(`Error searching for student: ${status} - ${error}`);
+                    );
+
+                    const students = await readResponse(response);
+
+                    if (!Array.isArray(students) || students.length === 0) {
+                        throw new Error("No matching student was found.");
                     }
-                });
+
+                    const student = students[0];
+
+                    populateStudent(student);
+
+                    showFeedback(
+                        searchFeedback,
+                        `Student ${student.SID} found successfully. You can now edit their information.`,
+                        "success"
+                    );
+
+                } catch (error) {
+
+                    if (error.name === "AbortError") {
+                        return;
+                    }
+
+                    console.error("Student search error:", error);
+
+                    showFeedback(
+                        searchFeedback,
+                        error.message || "Unable to search for the student.",
+                        "danger"
+                    );
+
+                } finally {
+
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = "Search Student";
+                    searchController = null;
+
+                }
+
             });
+
+            // Update student information.
+            updateForm.addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                if (selectedStudentSID === null) {
+                    showFeedback(
+                        editFeedback,
+                        "Please search for a student before updating.",
+                        "warning"
+                    );
+                    return;
+                }
+
+                if (!updateForm.reportValidity()) {
+                    return;
+                }
+
+                const studentData = {
+
+                    firstName: document.getElementById("firstName").value.trim(),
+
+                    lastName: document.getElementById("lastName").value.trim(),
+
+                    email: document.getElementById("email").value.trim(),
+
+                    nearCity: document.getElementById("city").value.trim(),
+
+                    guardian: document.getElementById("guardian").value.trim(),
+
+                    course: textToArray(
+                        document.getElementById("course").value
+                    ),
+
+                    subject: textToArray(
+                        document.getElementById("subject").value
+                    )
+
+                };
+
+                if (studentData.course.length === 0) {
+                    showFeedback(
+                        editFeedback,
+                        "Please enter at least one course.",
+                        "warning"
+                    );
+                    return;
+                }
+
+                if (studentData.subject.length === 0) {
+                    showFeedback(
+                        editFeedback,
+                        "Please enter at least one subject.",
+                        "warning"
+                    );
+                    return;
+                }
+
+                updateBtn.disabled = true;
+                updateBtn.textContent = "Saving Changes...";
+
+                hideFeedback(editFeedback);
+
+                try {
+
+                    const response = await fetch(
+                        `${API_BASE_URL}/students/update/${selectedStudentSID}`,
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify(studentData)
+                        }
+                    );
+
+                    const updatedStudent = await readResponse(response);
+
+                    if (updatedStudent && updatedStudent.SID === selectedStudentSID) {
+                        populateStudent(updatedStudent);
+                    }
+
+                    showFeedback(
+                        editFeedback,
+                        "Student information updated successfully!",
+                        "success"
+                    );
+
+                } catch (error) {
+
+                    console.error("Student update error:", error);
+
+                    showFeedback(
+                        editFeedback,
+                        error.message || "Unable to update student information.",
+                        "danger"
+                    );
+
+                } finally {
+
+                    updateBtn.disabled = false;
+                    updateBtn.textContent = "Save Changes";
+
+                }
+
+            });
+
         });
-        </script>
-        <!-- End Display form-->
-        <script src="settings.js"></script>
-    </body>
+    </script>
+
+</body>
+
 </html>

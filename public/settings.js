@@ -116,30 +116,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Apply settings button.
-    const applySettingsBtn = document.getElementById('applySettingsBtn');
-
-    if (applySettingsBtn) {
-        applySettingsBtn.addEventListener('click', function () {
-
-            const fontFamily = fontSelector
-                ? fontSelector.value
-                : DEFAULT_SETTINGS.fontFamily;
-
-            const fontSize = fontSizeSelector
-                ? fontSizeSelector.value
-                : DEFAULT_SETTINGS.fontSize;
-
-            const darkMode = darkModeToggle
-                ? darkModeToggle.checked
-                : false;
-
-            applyFontFamily(fontFamily);
-            applyFontSize(fontSize);
-            toggleDarkMode(darkMode);
-
-            alert('Settings applied successfully!');
-        });
-    }
-
 });

@@ -64,13 +64,6 @@
     max-width: 260px;
 }
 
-.settings-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 22px;
-}
-
 @media (max-width: 600px) {
     .settings-page {
         padding: 24px 14px;
@@ -89,13 +82,5 @@
     .settings-option-control {
         width: 100%;
         max-width: none;
-    }
-
-    .settings-actions {
-        flex-direction: column;
-    }
-
-    .settings-actions .btn {
-        width: 100%;
     }
 }

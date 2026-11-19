@@ -75,3 +75,48 @@ header.header {
         padding: 10px 12px !important;
     }
 }
+
+/* Mobile navbar brand and toggle alignment */
+.navbar .h3 {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Consistent mobile hamburger button */
+.navbar-toggler {
+    width: 46px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 0 !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--accent) !important;
+    border: 1px solid var(--accent) !important;
+    border-radius: 8px;
+
+    box-shadow: none !important;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+.navbar-toggler-icon {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
+    background-size: 100% 100%;
+}
+
+/* Keep brand and hamburger on the same row */
+@media (max-width: 991.98px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .navbar-collapse {
+        flex-basis: 100%;
+    }
+}
