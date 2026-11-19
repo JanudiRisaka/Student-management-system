@@ -4,7 +4,7 @@
   "description": "a simple student management system",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node scripts/run-api-tests.js",
     "serve": "node server.js",
     "dev": "nodemon server.js"
   },
@@ -20,6 +20,8 @@
     "punycode": "^2.3.1"
   },
   "devDependencies": {
+    "newman": "^6.2.3",
+    "newman-reporter-htmlextra": "^1.23.1",
     "nodemon": "^3.0.2"
   }
 }

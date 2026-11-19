@@ -377,8 +377,10 @@ app.get('/students/search/:option/:value', async (req, res) => {
             searchQuery = { SID: studentId };
 
         } else if (searchFields[option]) {
+            const normalizedValue = value.trim();
+
             searchQuery = {
-                [searchFields[option]]: value
+                [searchFields[option]]: normalizedValue
             };
 
         } else {

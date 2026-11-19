@@ -6,6 +6,7 @@ node_modules/
 .env
 .env.*
 !.env.example
+!.env.test.example
 
 # Logs
 logs/
@@ -23,6 +24,7 @@ pids/
 # Coverage and test reports
 coverage/
 .nyc_output/
+reports/
 
 # Build output
 dist/

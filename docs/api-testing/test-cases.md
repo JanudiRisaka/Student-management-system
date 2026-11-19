@@ -307,10 +307,26 @@ Expected response:
 
 After identifying the SID modification defect, the original SID of the affected student was restored directly in MongoDB Atlas.
 
-| Test ID | Test Scenario | Method | Endpoint | Expected Status |
-|---|---|---|---|---|
-| API-115 | Verify that the student can be retrieved using the restored original SID | GET | `/students/search/SID/1014` | 200 |
-| API-116 | Verify that the incorrect SID no longer retrieves the student | GET | `/students/search/SID/1015` | 404 |
+The restoration was verified manually in the test database. A subsequent API request was used to confirm that the incorrect SID no longer retrieves the student.
+
+| Test ID | Test Scenario | Execution Type | Expected Result |
+|---|---|---|---|
+| API-115 | Verify that the student's original SID has been restored to `1014` directly in MongoDB Atlas. | Manual database verification | The student's record contains the original SID `1014`. |
+| API-116 | Verify that the incorrect SID no longer retrieves the student after the original SID has been restored. | GET `/students/search/SID/1015` | 404 Not Found |
+
+**API-115 – Manual verification**
+
+- Verify the affected student's record directly in MongoDB Atlas.
+- Confirm that the original SID is `1014`.
+- This is a manual database verification and is not included in the Newman HTTP request count.
+
+**API-116 – API verification**
+
+- Method: `GET`
+- Endpoint: `/students/search/SID/1015`
+- Expected status: `404 Not Found`
+- Expected result: The API does not return a student record for the incorrect SID `1015`.
+- Execution: Included in the Newman collection.
 
 ---
 
