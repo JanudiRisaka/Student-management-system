@@ -1,167 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script>
-            (function () {
-                try {
-                    if (localStorage.getItem('darkMode') === 'true') {
-                        document.documentElement.classList.add('dark-mode');
-                    }
-                } catch (error) {
-                    console.error('Unable to load theme preference.');
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Student | Barnett College</title>
+
+    <!-- Apply saved dark mode before rendering -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem("darkMode") === "true") {
+                    document.documentElement.classList.add("dark-mode");
                 }
-            })();
-        </script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Student management system</title>
-        <!-- CSS link -->
-        <link href="css/header.css" rel="stylesheet">
-        <!-- Bootstrap CSS link -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap JS and jQuery CDN links -->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    </head>
-    <body class="d-flex flex-column h-100">
-         <!-- Begin Header -->
-         <header class="header" style="background-color: black;">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light p-4">
-                <a class="h3 text-decoration-none" href="home.html">
-                    <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"> Barnett College
+            } catch (error) {
+                console.error("Unable to load theme preference.");
+            }
+        })();
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Application CSS -->
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+
+                <a class="navbar-brand d-flex align-items-center gap-2" href="home.html">
+
+                    <img src="images/logo.png" width="40" height="40" alt="Barnett College logo">
+
+                    <span>Barnett College</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="ms-auto">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="home.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="display.html">Students</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="edit.html">Edit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="delete.html">Delete</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="add.html">+New Student</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="settings.html">Settings</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="display.html">Students</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="edit.html">Edit</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="delete.html">Delete</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="add.html">
+                                + New Student
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">Settings</a>
+                        </li>
+
+                    </ul>
                 </div>
-            </nav>
-        </header>
-        <!-- End Header -->
-        <!-- Begin Display form -->
-        <div class="container p-5" id="content">
-            <div class="row justify-content-center">
-                <div class="col-xs-6 block2 center p-3" style="width: 700px; background-color: #1c1c1c; border-radius: 8px;">
-                    <h3 class="mb-5 pt-4 text-center text-light">Add New Student</h3>
-                    <form id="addForm" class="form">
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter SID:</label>
-                                <input type="text" class="form-control" id="SID" aria-describedby="">
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Email:</label>
-                                <input type="text" class="form-control" id="email" aria-describedby="">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-grow-1">
+
+        <section class="add-student-page">
+
+            <!-- Page heading -->
+            <div class="mb-4">
+                <h1 class="page-heading">Add New Student</h1>
+
+                <p class="page-description">
+                    Enter the student's information to register a new student.
+                </p>
+            </div>
+
+            <!-- Student form card -->
+            <div class="add-student-card">
+
+                <div class="card-header">
+                    <h2 class="h5 mb-1">Student Information</h2>
+
+                    <p class="text-muted mb-0">
+                        Complete the fields below.
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                    <div id="addFeedback" class="mb-4" role="status" aria-live="polite" hidden></div>
+
+                    <form id="addForm" class="add-student-form" novalidate>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email Address
+                            </label>
+
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="student@example.com" required>
+                        </div>
+
+                        <!-- First Name -->
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">
+                                First Name
+                            </label>
+
+                            <input type="text" class="form-control" id="firstName" name="firstName"
+                                placeholder="Enter first name" required>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">
+                                Last Name
+                            </label>
+
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                placeholder="Enter last name" required>
+                        </div>
+
+                        <!-- City -->
+                        <div class="form-group">
+                            <label for="city" class="form-label">
+                                Nearest City
+                            </label>
+
+                            <input type="text" class="form-control" id="city" name="city"
+                                placeholder="Enter nearest city" required>
+                        </div>
+
+                        <!-- Guardian -->
+                        <div class="form-group">
+                            <label for="guardian" class="form-label">
+                                Guardian
+                            </label>
+
+                            <input type="text" class="form-control" id="guardian" name="guardian"
+                                placeholder="Enter guardian name" required>
+                        </div>
+
+                        <!-- Course -->
+                        <div class="form-group">
+                            <label for="course" class="form-label">
+                                Course
+                            </label>
+
+                            <input type="text" class="form-control" id="course" name="course" placeholder="Enter course"
+                                required>
+                        </div>
+
+                        <!-- Subjects -->
+                        <div class="form-group">
+                            <label for="subject" class="form-label">
+                                Subjects
+                            </label>
+
+                            <input type="text" class="form-control" id="subject" name="subject"
+                                placeholder="e.g. Mathematics, Science, English" required>
+
+                            <div class="form-text">
+                                Separate multiple subjects using commas.
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter First Name:</label>
-                                <input type="text" class="form-control" id="firstName" aria-describedby="">
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Last Name:</label>
-                                <input type="text" class="form-control" id="lastName" aria-describedby="">
-                            </div>
+
+                        <!-- Form actions -->
+                        <div class="form-actions">
+
+                            <a href="display.html" class="btn btn-secondary">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn btn-primary" id="addBtn">
+                                Add Student
+                            </button>
+
                         </div>
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Nearest City:</label>
-                                <input type="text" class="form-control" id="city" aria-describedby="">
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Guardian:</label>
-                                <input type="text" class="form-control" id="guardian" aria-describedby="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Courses:</label>
-                                <input type="text" class="form-control" id="course" aria-describedby="">
-                            </div>
-                            <div class="col form-group mb-4">
-                                <label for="" class="form-label">Enter Subjects:</label>
-                                <input type="text" class="form-control" id="subject" aria-describedby="">
-                            </div>
-                        </div>
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-primary px-5" id="addBtn">Add</button>
-                        </div>
+
                     </form>
                 </div>
             </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3">
+
+        <div class="container text-center">
+
+            <p class="mb-1">
+                &copy; 2026 Barnett College. All rights reserved.
+            </p>
+
+            <p class="mb-0">
+                Cultivating brilliance, shaping futures, where
+                innovation meets inclusive academic excellence.
+            </p>
+
         </div>
-        <!-- Begin footer -->
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container text-center">
-                <span class="text-muted">
-                    © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
-                </span>
-            </div>
-        </footer>
-        <!-- End footer -->
-        <script>
-            $(document).ready(function () {
-                $('#addBtn').click(function () {
-                    $.ajax({
-                        url: 'http://localhost:3000/students',
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            SID: $('#SID').val(),
-                            firstName: $('#firstName').val(),
-                            lastName: $('#lastName').val(),
-                            email: $('#email').val(),
-                            nearCity: $('#city').val(),
-                            course: $('#course').val(),
-                            guardian: $('#guardian').val(),
-                            subject: $('#subject').val().split(','),
-                        }),
-                        success: function (data, textStatus, jQxhr) {
-                            alert('Student added successfully!');
+
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Application settings -->
+    <script src="settings.js"></script>
+
+    <!-- Add student functionality -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const API_BASE_URL = "http://localhost:3000";
+
+            const form = document.getElementById("addForm");
+            const submitButton = document.getElementById("addBtn");
+            const feedback = document.getElementById("addFeedback");
+
+            function showFeedback(message, type) {
+                feedback.hidden = false;
+                feedback.className = `alert alert-${type} mb-4`;
+                feedback.textContent = message;
+            }
+
+            form.addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                // Native form validation
+                if (!form.reportValidity()) {
+                    return;
+                }
+
+                const subjectValue = document.getElementById("subject").value;
+
+                const studentData = {
+                    firstName: document.getElementById("firstName").value.trim(),
+                    lastName: document.getElementById("lastName").value.trim(),
+                    email: document.getElementById("email").value.trim(),
+                    nearCity: document.getElementById("city").value.trim(),
+                    course: document.getElementById("course").value.trim(),
+                    guardian: document.getElementById("guardian").value.trim(),
+                    subject: subjectValue
+                        .split(",")
+                        .map(subject => subject.trim())
+                        .filter(subject => subject !== "")
+                };
+
+                if (studentData.subject.length === 0) {
+                    showFeedback(
+                        "Please enter at least one subject.",
+                        "warning"
+                    );
+                    return;
+                }
+
+                submitButton.disabled = true;
+                submitButton.textContent = "Adding Student...";
+
+                feedback.hidden = true;
+
+                try {
+
+                    const response = await fetch(`${API_BASE_URL}/students`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
                         },
-                        error: function (xhr, textStatus, error) {
-                            console.error(xhr.status + ': ' + xhr.responseText);
-                            alert('Error: Failed to add student');
-                        }
+                        body: JSON.stringify(studentData)
                     });
 
-                    // Clear the input fields
-                    $("#SID").val("");
-                    $("#firstName").val("");
-                    $("#lastName").val("");
-                    $("#email").val("");
-                    $("#city").val("");
-                    $("#course").val("");
-                    $("#guardian").val("");
-                    $("#subject").val("");
-                });
+                    const responseText = await response.text();
+
+                    if (!response.ok) {
+                        throw new Error(
+                            responseText || `Server returned status ${response.status}`
+                        );
+                    }
+
+                    form.reset();
+
+                    showFeedback(
+                        "Student added successfully!",
+                        "success"
+                    );
+
+                } catch (error) {
+
+                    console.error("Error adding student:", error);
+
+                    showFeedback(
+                        `Unable to add student: ${error.message}`,
+                        "danger"
+                    );
+
+                } finally {
+
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Add Student";
+
+                }
+
             });
-       </script>
-       <script src="settings.js"></script>
-        <!-- End Display form-->
-    </body>
+
+        });
+    </script>
+
+</body>
+
 </html>

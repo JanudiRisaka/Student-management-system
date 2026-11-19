@@ -1,0 +1,77 @@
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+header.header {
+    position: relative;
+    z-index: 1030;
+    background: var(--surface);
+}
+
+.navbar {
+    min-height: 76px;
+    padding: 12px 5% !important;
+
+    background: var(--surface) !important;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-brand,
+.navbar .h3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0;
+    color: var(--primary) !important;
+
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.navbar img {
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.navbar-nav {
+    align-items: center;
+    gap: 6px;
+}
+
+.navbar .nav-link {
+    padding: 9px 13px !important;
+    border-radius: var(--radius-sm);
+
+    color: var(--text-secondary) !important;
+    font-size: 0.94rem;
+    font-weight: 600;
+
+    transition:
+        color var(--transition),
+        background-color var(--transition);
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--accent) !important;
+    background: #eff6ff;
+}
+
+.navbar-toggler {
+    border-color: var(--border);
+    box-shadow: none !important;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        align-items: stretch;
+        padding-top: 12px;
+    }
+
+    .navbar .nav-link {
+        padding: 10px 12px !important;
+    }
+}

@@ -1,0 +1,20 @@
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer.footer {
+    width: 100%;
+    margin-top: auto;
+    padding: 22px 15px !important;
+
+    background: var(--surface) !important;
+    border-top: 1px solid var(--border);
+
+    text-align: center;
+}
+
+footer .text-muted {
+    color: var(--text-secondary) !important;
+    font-size: 0.85rem;
+    line-height: 1.7;
+}

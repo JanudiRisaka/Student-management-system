@@ -1,183 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script>
-            (function () {
-                try {
-                    if (localStorage.getItem('darkMode') === 'true') {
-                        document.documentElement.classList.add('dark-mode');
-                    }
-                } catch (error) {
-                    console.error('Unable to load theme preference.');
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Students | Barnett College</title>
+
+    <!-- Apply saved dark mode before rendering -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem("darkMode") === "true") {
+                    document.documentElement.classList.add("dark-mode");
                 }
-            })();
-        </script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Student management system</title>
-        <!-- CSS link -->
-        <link href="css/header.css" rel="stylesheet">
-        <!-- Bootstrap CSS link -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap JS and jQuery CDN links -->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    </head>
-    <body class="d-flex flex-column h-100">
-         <!-- Begin Header -->
-         <header class="header" style="background-color: black;">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light p-4">
-                <a class="h3 text-decoration-none" href="home.html">
-                    <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"> Barnett College
+            } catch (error) {
+                console.error("Unable to load theme preference.");
+            }
+        })();
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Application CSS -->
+    <link href="css/main.css" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+
+                <a class="navbar-brand d-flex align-items-center gap-2"
+                   href="home.html">
+
+                    <img
+                        src="images/logo.png"
+                        width="40"
+                        height="40"
+                        alt="Barnett College logo"
+                    >
+
+                    <span>Barnett College</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="ms-auto">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="home.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="display.html">Students</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="edit.html">Edit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="delete.html">Delete</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="add.html">+New Student</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="settings.html">Settings</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="home.html">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                               aria-current="page"
+                               href="display.html">
+                                Students
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="edit.html">Edit</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="delete.html">Delete</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="add.html">+ New Student</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="settings.html">Settings</a>
+                        </li>
+
+                    </ul>
                 </div>
-            </nav>
-        </header>
-        <!-- End Header -->
-        <!-- Begin Display Table -->
-        <div class="table-container" style="margin: 140px 30px 30px;" id="displayForm">
-            <form class="form-inline my-2 my-lg-0 ml-3">
-                <div class="input-group">
-                    <select class="mx-2 btn btn-light rounded" id="searchOption">
-                        <option value="SID">StudentID</option>
-                        <option value="firstname">First Name</option>
-                        <option value="lastname">Last Name</option>
-                        <option value="email">Email</option>
-                        <option value="city">Near City</option>
-                        <option value="course">Course</option>
-                        <option value="guardian">Guardian</option>
-                    </select>
-                    <input class="form-control" type="search" placeholder="Search here..." aria-label="Search" id="searchInput">
-                    <button class="btn btn-outline my-2 my-sm-0" type="button" id="searchBtn">Search</button>
-                </div>
-            </form>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">SID</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Near City</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Guardian</th>
-                    <th scope="col">Subjects</th>
-                </tr>
-                </thead>
-                <tbody id="studentTableBody">
-                <!-- Student data will be displayed here dynamically -->
-                </tbody>
-            </table>
-        </div>
-        <!-- Begin footer -->
-        <footer class="footer mt-auto py-3 bg-light sticky">
-            <div class="container text-center">
-                <span class="text-muted">
-                    © 2023 Barnett. All rights reserved.<br>Cultivating brilliance, shaping futures, where innovation meets inclusive academic excellence.
-                </span>
             </div>
-        </footer>
-        <!-- End footer -->
-        <script>
-            $(document).ready(function () {
-                // Fetch all students on page load
-                fetchAllStudents();
+        </nav>
+    </header>
 
-                // Function to fetch all students
-                function fetchAllStudents() {
-                    $.ajax({
-                        url: `http://localhost:3000/students`,
-                        method: 'GET',
-                        success: function (data) {
-                            displayStudents(data);
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error fetching students:', error);
-                            console.log('Response:', xhr.responseText);
+    <!-- Main content -->
+    <main class="flex-grow-1">
 
-                        }
-                    });
+        <section class="students-page">
+
+            <!-- Page heading -->
+            <div class="mb-4">
+                <h1 class="page-heading">Student Directory</h1>
+
+                <p class="page-description">
+                    View, search and manage student information.
+                </p>
+            </div>
+
+            <!-- Search toolbar -->
+            <div class="students-toolbar">
+
+                <form class="students-search" id="studentSearchForm">
+
+                    <div class="form-group">
+                        <label for="searchOption" class="form-label">
+                            Search by
+                        </label>
+
+                        <select class="form-select" id="searchOption">
+                            <option value="SID">Student ID</option>
+                            <option value="firstname">First Name</option>
+                            <option value="lastname">Last Name</option>
+                            <option value="email">Email</option>
+                            <option value="city">Near City</option>
+                            <option value="course">Course</option>
+                            <option value="guardian">Guardian</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="searchInput" class="form-label">
+                            Search students
+                        </label>
+
+                        <input
+                            class="form-control"
+                            type="search"
+                            id="searchInput"
+                            placeholder="Enter a search term..."
+                        >
+                    </div>
+
+                    <button
+                        class="btn btn-primary"
+                        type="submit"
+                        id="searchBtn"
+                    >
+                        Search
+                    </button>
+
+                    <button
+                        class="btn btn-secondary"
+                        type="button"
+                        id="resetBtn"
+                    >
+                        Reset
+                    </button>
+
+                </form>
+
+                <a href="add.html" class="btn btn-primary">
+                    + Add Student
+                </a>
+
+            </div>
+
+            <!-- Feedback messages -->
+            <div
+                id="studentsFeedback"
+                class="students-feedback"
+                role="status"
+                aria-live="polite"
+                hidden
+            ></div>
+
+            <!-- Student table -->
+            <div class="students-table-card">
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">SID</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Near City</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Guardian</th>
+                                    <th scope="col">Subjects</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="studentTableBody">
+                                <!-- Student records are inserted here -->
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3">
+
+        <div class="container text-center">
+
+            <p class="mb-1">
+                &copy; 2026 Barnett College. All rights reserved.
+            </p>
+
+            <p class="mb-0">
+                Cultivating brilliance, shaping futures, where
+                innovation meets inclusive academic excellence.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Application settings -->
+    <script src="settings.js"></script>
+
+    <!-- Student directory functionality -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const API_BASE_URL = "http://localhost:3000";
+
+            const tableBody = document.getElementById("studentTableBody");
+            const searchForm = document.getElementById("studentSearchForm");
+            const searchInput = document.getElementById("searchInput");
+            const searchOption = document.getElementById("searchOption");
+            const searchButton = document.getElementById("searchBtn");
+            const resetButton = document.getElementById("resetBtn");
+            const feedback = document.getElementById("studentsFeedback");
+
+            // Display feedback messages
+            function showFeedback(message, type = "info") {
+                feedback.hidden = false;
+                feedback.className = `students-feedback alert alert-${type}`;
+                feedback.textContent = message;
+            }
+
+            function clearFeedback() {
+                feedback.hidden = true;
+                feedback.textContent = "";
+                feedback.className = "students-feedback";
+            }
+
+            // Safely create a table cell using textContent
+            function createCell(value) {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "";
+                return cell;
+            }
+
+            // Display student records
+            function displayStudents(students) {
+
+                tableBody.replaceChildren();
+
+                if (!Array.isArray(students)) {
+                    showFeedback("The server returned an unexpected response.", "danger");
+                    return;
                 }
 
-                // Function to display students in the table
-                function displayStudents(students) {
-                    // Clear existing data
-                    $('#studentTableBody').empty();
-
-                        students.forEach(function (student) {
-                        $('#studentTableBody').append(`
-                            <tr>
-                                <td>${student.SID}</td>
-                                <td>${student.firstName}</td>
-                                <td>${student.lastName}</td>
-                                <td>${student.email}</td>
-                                <td>${student.nearCity}</td>
-                                <td>${student.course}</td>
-                                <td>${student.guardian}</td>
-                                <td>${student.subject ? student.subject.join(', ') : ''}</td>
-                            </tr>
-                        `);
-                    });
+                if (students.length === 0) {
+                    showFeedback("No students found.", "warning");
+                    return;
                 }
-                // Set up the click event handler for the search button
-                $('#searchBtn').click(function () {
-                    var searchValue = $('#searchInput').val().trim();
-                    var searchOption = $('#searchOption').val();
 
-                    // Construct the URL for search
-                    var searchUrl = `http://localhost:3000/students/search/${searchOption}/${searchValue}`;
+                const fragment = document.createDocumentFragment();
 
-                    // Fetch and display students based on the search value
-                    fetch(searchUrl)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! Status: ${response.status}`);
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log('Response Data:', data);
-                            // Call the displayStudents function with the retrieved data
-                            displayStudents(data);
-                        })
-                        .catch(error => {
-                            console.error('Error fetching students:', error.message);
-                            alert(`Error fetching students: ${error.message}`);
-                            console.log('Search Option:', searchOption);
-                            console.log('Search Value:', searchValue);
-                            console.log('Search URL:', searchUrl);
-                    });
+                students.forEach(function (student) {
+
+                    const row = document.createElement("tr");
+
+                    const subjects = Array.isArray(student.subject)
+                        ? student.subject.join(", ")
+                        : student.subject ?? "";
+
+                    row.appendChild(createCell(student.SID));
+                    row.appendChild(createCell(student.firstName));
+                    row.appendChild(createCell(student.lastName));
+                    row.appendChild(createCell(student.email));
+                    row.appendChild(createCell(student.nearCity));
+                    row.appendChild(createCell(student.course));
+                    row.appendChild(createCell(student.guardian));
+                    row.appendChild(createCell(subjects));
+
+                    fragment.appendChild(row);
                 });
+
+                tableBody.appendChild(fragment);
+            }
+
+            // Fetch all students
+            async function fetchAllStudents() {
+
+                clearFeedback();
+
+                searchButton.disabled = true;
+                showFeedback("Loading student records...", "info");
+
+                try {
+
+                    const response = await fetch(`${API_BASE_URL}/students`);
+
+                    if (!response.ok) {
+                        throw new Error(`Server returned status ${response.status}`);
+                    }
+
+                    const students = await response.json();
+
+                    clearFeedback();
+                    displayStudents(students);
+
+                } catch (error) {
+
+                    console.error("Error fetching students:", error);
+
+                    tableBody.replaceChildren();
+
+                    showFeedback(
+                        "Unable to load student records. Please check your connection and try again.",
+                        "danger"
+                    );
+
+                } finally {
+
+                    searchButton.disabled = false;
+
+                }
+            }
+
+            // Search students
+            async function searchStudents(event) {
+
+                event.preventDefault();
+
+                const searchValue = searchInput.value.trim();
+                const selectedOption = searchOption.value;
+
+                // Empty search resets the directory
+                if (!searchValue) {
+                    fetchAllStudents();
+                    return;
+                }
+
+                clearFeedback();
+
+                searchButton.disabled = true;
+
+                showFeedback("Searching student records...", "info");
+
+                const encodedValue = encodeURIComponent(searchValue);
+
+                const searchUrl =
+                    `${API_BASE_URL}/students/search/${selectedOption}/${encodedValue}`;
+
+                try {
+
+                    const response = await fetch(searchUrl);
+
+                    if (!response.ok) {
+                        throw new Error(`Server returned status ${response.status}`);
+                    }
+
+                    const students = await response.json();
+
+                    clearFeedback();
+                    displayStudents(students);
+
+                } catch (error) {
+
+                    console.error("Error searching students:", error);
+
+                    tableBody.replaceChildren();
+
+                    showFeedback(
+                        "Unable to complete the search. Please try again.",
+                        "danger"
+                    );
+
+                } finally {
+
+                    searchButton.disabled = false;
+
+                }
+            }
+
+            // Event listeners
+            searchForm.addEventListener("submit", searchStudents);
+
+            resetButton.addEventListener("click", function () {
+                searchInput.value = "";
+                searchOption.value = "SID";
+                fetchAllStudents();
             });
 
-        </script>
-       <script src="settings.js"></script>
-    </body>
+            // Initial student loading
+            fetchAllStudents();
+
+        });
+    </script>
+
+</body>
 </html>

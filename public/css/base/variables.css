@@ -1,0 +1,59 @@
+/* =========================================
+   BARNETT COLLEGE — DESIGN TOKENS
+   ========================================= */
+
+:root {
+    /* Brand */
+    --primary: #172554;
+    --primary-hover: #1e40af;
+    --accent: #2563eb;
+
+    /* Backgrounds */
+    --background: #f5f7fb;
+    --surface: #ffffff;
+    --surface-muted: #f8fafc;
+
+    /* Text */
+    --text-primary: #172033;
+    --text-secondary: #64748b;
+
+    /* Borders */
+    --border: #e2e8f0;
+
+    /* Status colours */
+    --success: #15803d;
+    --danger: #dc2626;
+    --warning: #d97706;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.07);
+    --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.10);
+
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    /* Transitions */
+    --transition: 0.2s ease;
+}
+
+/* Dark theme tokens */
+
+html.dark-mode {
+    color-scheme: dark;
+
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-muted: #273449;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+
+    --border: #334155;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.3);
+}

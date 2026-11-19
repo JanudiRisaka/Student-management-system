@@ -1,0 +1,78 @@
+/* =========================================
+   ADD STUDENT PAGE
+   ========================================= */
+
+.add-student-page {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.add-student-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
+}
+
+.add-student-card .card-header {
+    padding: 22px 28px;
+    background: var(--surface-muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.add-student-card .card-body {
+    padding: 28px;
+}
+
+.add-student-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.add-student-form .form-group {
+    min-width: 0;
+}
+
+.add-student-form .full-width {
+    grid-column: 1 / -1;
+}
+
+.add-student-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    grid-column: 1 / -1;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    .add-student-page {
+        padding: 24px 14px;
+    }
+
+    .add-student-card .card-header,
+    .add-student-card .card-body {
+        padding: 20px;
+    }
+
+    .add-student-form {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .add-student-form .full-width {
+        grid-column: auto;
+    }
+
+    .add-student-form .form-actions {
+        flex-direction: column;
+    }
+
+    .add-student-form .form-actions .btn {
+        width: 100%;
+    }
+}

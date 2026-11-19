@@ -1,0 +1,78 @@
+/* =========================================
+   STUDENT TABLES
+   ========================================= */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 0;
+
+    background: var(--surface);
+    color: var(--text-primary);
+
+    border-color: var(--border);
+    vertical-align: middle;
+}
+
+.table thead th {
+    padding: 15px 12px;
+
+    background: var(--surface-muted);
+    color: var(--text-secondary);
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+
+    white-space: nowrap;
+}
+
+.table tbody td {
+    padding: 14px 12px;
+    color: var(--text-primary);
+    border-color: var(--border);
+
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+.table tbody tr {
+    transition: background-color var(--transition);
+}
+
+.table tbody tr:hover {
+    background: #f1f5f9;
+}
+
+/* Dark mode */
+
+html.dark-mode .table {
+    --bs-table-bg: var(--surface);
+    --bs-table-color: var(--text-primary);
+    --bs-table-border-color: var(--border);
+
+    --bs-table-striped-bg: #273449;
+    --bs-table-striped-color: var(--text-primary);
+
+    --bs-table-hover-bg: #334155;
+    --bs-table-hover-color: #ffffff;
+}
+
+html.dark-mode .table thead th,
+html.dark-mode .table tbody td {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+html.dark-mode .table tbody tr:hover {
+    background: #334155;
+}

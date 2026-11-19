@@ -1,0 +1,57 @@
+/* =========================================
+   FORMS — BOOTSTRAP CUSTOMIZATION
+   ========================================= */
+
+.form-label {
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+}
+
+.form-control:disabled {
+    background-color: var(--surface-muted);
+    color: var(--text-secondary);
+}
+
+.form-text {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Dark mode */
+
+html.dark-mode .form-control,
+html.dark-mode .form-select {
+    background-color: #0f172a;
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+html.dark-mode .form-control:disabled {
+    background-color: #273449;
+}
+
+html.dark-mode .form-control::placeholder {
+    color: #94a3b8;
+}

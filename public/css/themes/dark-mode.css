@@ -1,0 +1,104 @@
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+html.dark-mode body {
+    background-color: var(--background);
+    color: var(--text-primary);
+}
+
+/* Headings and text */
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6 {
+    color: var(--text-primary);
+}
+
+html.dark-mode p,
+html.dark-mode .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Navbar */
+html.dark-mode .navbar {
+    background-color: var(--surface) !important;
+    border-bottom: 1px solid var(--border);
+}
+
+html.dark-mode .navbar-brand,
+html.dark-mode .nav-link {
+    color: var(--text-primary) !important;
+}
+
+html.dark-mode .nav-link:hover,
+html.dark-mode .nav-link.active {
+    color: var(--accent) !important;
+}
+
+/* Cards and content containers */
+html.dark-mode .card,
+html.dark-mode .table-container,
+html.dark-mode #form,
+html.dark-mode #searchForm,
+html.dark-mode #settings {
+    background-color: var(--surface);
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+/* Tables */
+html.dark-mode .table {
+    --bs-table-bg: var(--surface);
+    --bs-table-color: var(--text-primary);
+    --bs-table-border-color: var(--border);
+    --bs-table-striped-bg: #273449;
+    --bs-table-striped-color: var(--text-primary);
+    --bs-table-hover-bg: #334155;
+    --bs-table-hover-color: var(--text-primary);
+}
+
+/* Form controls */
+html.dark-mode .form-control,
+html.dark-mode .form-select {
+    background-color: var(--surface-muted);
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+html.dark-mode .form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+html.dark-mode .form-control:disabled,
+html.dark-mode .form-select:disabled {
+    background-color: #334155;
+    color: var(--text-secondary);
+}
+
+/* Buttons */
+html.dark-mode .btn-secondary {
+    background-color: #475569;
+    border-color: #475569;
+    color: #fff;
+}
+
+html.dark-mode .btn-secondary:hover {
+    background-color: #64748b;
+    border-color: #64748b;
+}
+
+/* Footer */
+html.dark-mode footer.footer {
+    background-color: var(--surface) !important;
+    border-top-color: var(--border);
+}
+
+/* Delete warning */
+html.dark-mode .delete-student-warning {
+    background-color: #422006;
+    border-color: #92400e;
+    color: #fde68a;
+}

@@ -1,0 +1,52 @@
+/* =========================================
+   SHARED RESPONSIVE UTILITIES
+   ========================================= */
+
+/* Prevent horizontal overflow */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .navbar .container,
+    .navbar .container-fluid {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .page-heading {
+        font-size: 1.65rem;
+    }
+
+    .page-description {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        white-space: normal;
+    }
+
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+    }
+}

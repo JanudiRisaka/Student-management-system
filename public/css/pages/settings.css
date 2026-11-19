@@ -1,0 +1,101 @@
+/* =========================================
+   SETTINGS PAGE
+   ========================================= */
+
+.settings-page {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.settings-card {
+    margin-bottom: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.settings-card .card-header {
+    padding: 20px 26px;
+    background: var(--surface-muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-card .card-body {
+    padding: 24px 26px;
+}
+
+.settings-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-option:last-child {
+    border-bottom: none;
+}
+
+.settings-option-info {
+    flex: 1;
+    min-width: 180px;
+}
+
+.settings-option-info h3 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.settings-option-info p {
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.settings-option-control {
+    min-width: 180px;
+    max-width: 260px;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+@media (max-width: 600px) {
+    .settings-page {
+        padding: 24px 14px;
+    }
+
+    .settings-card .card-header,
+    .settings-card .card-body {
+        padding: 20px;
+    }
+
+    .settings-option {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .settings-option-control {
+        width: 100%;
+        max-width: none;
+    }
+
+    .settings-actions {
+        flex-direction: column;
+    }
+
+    .settings-actions .btn {
+        width: 100%;
+    }
+}

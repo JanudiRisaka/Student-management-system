@@ -1,0 +1,87 @@
+/* =========================================
+   EDIT STUDENT PAGE
+   ========================================= */
+
+.edit-student-page {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.edit-student-search-card,
+.edit-student-form-card {
+    margin-bottom: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.edit-student-search-card .card-body,
+.edit-student-form-card .card-body {
+    padding: 24px 28px;
+}
+
+.edit-student-search {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 14px;
+}
+
+.edit-student-search .form-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.edit-student-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.edit-student-form .form-group {
+    min-width: 0;
+}
+
+.edit-student-form .full-width {
+    grid-column: 1 / -1;
+}
+
+.edit-student-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    grid-column: 1 / -1;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    .edit-student-page {
+        padding: 24px 14px;
+    }
+
+    .edit-student-search-card .card-body,
+    .edit-student-form-card .card-body {
+        padding: 20px;
+    }
+
+    .edit-student-form {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .edit-student-form .full-width {
+        grid-column: auto;
+    }
+
+    .edit-student-form .form-actions {
+        flex-direction: column;
+    }
+
+    .edit-student-form .form-actions .btn {
+        width: 100%;
+    }
+}

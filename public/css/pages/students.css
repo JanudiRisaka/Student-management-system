@@ -1,0 +1,88 @@
+/* =========================================
+   STUDENT LIST PAGE
+   ========================================= */
+
+.students-page {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px 24px;
+}
+
+.students-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.students-search {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 12px;
+    max-width: 720px;
+}
+
+.students-search .form-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.students-table-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.students-table-card .card-body {
+    padding: 0;
+}
+
+.students-table-card .table-responsive {
+    border-radius: var(--radius-lg);
+}
+
+.students-table-card .table {
+    min-width: 850px;
+}
+
+/* Student search feedback */
+.students-feedback {
+    margin-bottom: 16px;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .students-page {
+        padding: 24px 16px;
+    }
+
+    .students-toolbar {
+        align-items: stretch;
+    }
+
+    .students-search {
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .students-page {
+        padding: 20px 12px;
+    }
+
+    .students-search {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .students-search .form-group {
+        width: 100%;
+    }
+}

@@ -1,0 +1,64 @@
+/* =========================================
+   DELETE STUDENT PAGE
+   ========================================= */
+
+.delete-student-page {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.delete-student-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
+}
+
+.delete-student-card .card-header {
+    padding: 22px 26px;
+    background: var(--surface-muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.delete-student-card .card-body {
+    padding: 28px;
+}
+
+.delete-student-warning {
+    margin-bottom: 22px;
+    padding: 16px;
+    border: 1px solid #fcd34d;
+    border-radius: var(--radius-md);
+    background: #fffbeb;
+    color: #92400e;
+    line-height: 1.6;
+}
+
+.delete-student-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+@media (max-width: 600px) {
+    .delete-student-page {
+        padding: 24px 14px;
+    }
+
+    .delete-student-card .card-header,
+    .delete-student-card .card-body {
+        padding: 20px;
+    }
+
+    .delete-student-form .form-actions {
+        flex-direction: column;
+    }
+
+    .delete-student-form .form-actions .btn {
+        width: 100%;
+    }
+}
