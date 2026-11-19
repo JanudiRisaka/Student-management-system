@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const Student = require('./models/studentModel');
+const Counter = require('./models/counterModel');
 
 const app = express();
 
@@ -35,6 +36,45 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Helper Functions
 // =====================================================
 
+// Initialize the student ID counter using existing records.
+async function initializeStudentCounter() {
+    const highestStudent = await Student.findOne()
+        .sort({ SID: -1 })
+        .select('SID')
+        .lean();
+
+    const highestSID = highestStudent ? highestStudent.SID : 0;
+
+    await Counter.updateOne(
+        { _id: 'studentSID' },
+        { $max: { seq: highestSID } },
+        { upsert: true }
+    );
+
+    console.log(`Student ID counter initialized. Highest existing SID: ${highestSID}`);
+}
+
+// Generate the next unique student ID atomically.
+async function generateStudentId() {
+    const counter = await Counter.findOneAndUpdate(
+        {
+            _id: 'studentSID',
+            seq: { $lt: Number.MAX_SAFE_INTEGER }
+        },
+        { $inc: { seq: 1 } },
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
+    if (!counter || !Number.isSafeInteger(counter.seq)) {
+        throw new Error('Unable to generate a valid student ID.');
+    }
+
+    return counter.seq;
+}
+
 // Validate and parse a student ID.
 function parseStudentId(value) {
     const id = Number(value);
@@ -53,7 +93,6 @@ function parseStudentId(value) {
 // Normalize student input and allow only expected fields.
 function sanitizeStudentInput(data) {
     const allowedFields = [
-        'SID',
         'firstName',
         'lastName',
         'email',
@@ -95,17 +134,6 @@ function sanitizeStudentInput(data) {
             continue;
         }
 
-        if (field === 'SID') {
-            const id = parseStudentId(value);
-
-            if (id === null) {
-                throw new Error('Student ID must be a positive integer.');
-            }
-
-            sanitizedData.SID = id;
-            continue;
-        }
-
         if (typeof value !== 'string') {
             throw new Error(`${field} must be a string.`);
         }
@@ -133,7 +161,6 @@ function sanitizeStudentInput(data) {
 // Check mandatory fields when creating a student.
 function validateRequiredFields(data) {
     const requiredFields = [
-        'SID',
         'firstName',
         'lastName',
         'email',
@@ -195,9 +222,10 @@ app.post('/students', async (req, res) => {
         }
 
         const studentData = sanitizeStudentInput(req.body);
-
         validateRequiredFields(studentData);
-
+        delete studentData.SID;
+        const nextSID = await generateStudentId();
+        studentData.SID = nextSID;
         const student = await Student.create(studentData);
 
         return res.status(201).json(student);
@@ -448,6 +476,8 @@ async function startServer() {
         await mongoose.connect(MONGODB_URI);
 
         console.log('Connected to MongoDB successfully.');
+
+        await initializeStudentCounter();
 
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);

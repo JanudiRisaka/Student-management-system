@@ -100,6 +100,14 @@ async function seedIsolatedDatabase(uri) {
             guardian: 'Automation Guardian',
             subject: ['API Testing']
         });
+        const Counter = require('../models/counterModel');
+
+        await Counter.updateOne(
+            { _id: 'studentSID' },
+            { $set: { seq: 9000 } },
+            { upsert: true }
+        );
+
     } finally {
         await mongoose.disconnect();
     }
