@@ -28,9 +28,12 @@ The application provides an interface for managing student information alongside
 
 ![Dark mode interface](docs/screenshots/dark-mode.png)
 
-### Demo Video
 
-[Watch the application walkthrough](docs/demo/student-management-demo.mp4)
+## Demo Video
+
+[![Watch the Student Management System Demo](docs/screenshots/home.png)](https://youtu.be/bqFtOPTGlNE)
+
+Click the image to watch the application demonstration on YouTube.
 
 ## Key Features
 
