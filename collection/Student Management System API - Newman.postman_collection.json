@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "db93603a-8a20-4d34-a9b4-7df85813990b",
     "name": "Student Management System API - Newman Corrected",
-    "description": "Student Management System API collection for automated testing with Postman and Newman.\n\nStudent IDs are generated dynamically and stored in collection variables. Run requests in order to maintain test dependencies.\n\nTests cover student creation, updates, searches, input validation, response statuses, and error handling. First and last names must each contain one word; hyphens and apostrophes are allowed, but internal spaces are rejected.\n\nDependent requests are sequenced to ensure reliable test execution.",
+    "description": "Student Management System API collection for automated testing with Postman and Newman.\n\nStudent IDs are generated dynamically and stored in collection variables. Run requests in order to maintain test dependencies.\n\nTests cover student creation, updates, searches, input validation, response statuses, and error handling. First and last names must each contain one word; hyphens and apostrophes are allowed, but internal spaces are rejected.\n\nDependent requests are sequenced to ensure reliable test execution.\n\nAPI-117 through API-122 cover the new single-word name validation and require POST/PUT validation errors to return HTTP 400.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "43078057"
   },
@@ -11287,6 +11287,207 @@
               "body": "{\n  \"message\": \"subject values cannot exceed 100 characters.\"\n}"
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "07 - Single-word Name Validation",
+      "item": [
+        {
+          "name": "API-117 - Reject Multiword First Name on Creation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Expected HTTP status is 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Validation message is correct\", function () { pm.expect(pm.response.json().message).to.eql(\"firstName must contain only one word.\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/students",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John Paul\",\n  \"lastName\": \"Smith\",\n  \"email\": \"name.validation@example.com\",\n  \"nearCity\": \"Kandy\",\n  \"course\": [\n    \"IT\"\n  ],\n  \"guardian\": \"David Smith\",\n  \"subject\": [\n    \"Programming\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API-118 - Reject Multiword Last Name on Creation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Expected HTTP status is 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Validation message is correct\", function () { pm.expect(pm.response.json().message).to.eql(\"lastName must contain only one word.\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/students",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Van Smith\",\n  \"email\": \"name.validation@example.com\",\n  \"nearCity\": \"Kandy\",\n  \"course\": [\n    \"IT\"\n  ],\n  \"guardian\": \"David Smith\",\n  \"subject\": [\n    \"Programming\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API-119 - Reject Multiword First Name on Update",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Expected HTTP status is 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Validation message is correct\", function () { pm.expect(pm.response.json().message).to.eql(\"firstName must contain only one word.\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/students/update/{{__smsRunGeneratedSecondStudentSID}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Mary Jane\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API-120 - Reject Multiword Last Name on Update",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Expected HTTP status is 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Validation message is correct\", function () { pm.expect(pm.response.json().message).to.eql(\"lastName must contain only one word.\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/students/update/{{__smsRunGeneratedSecondStudentSID}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lastName\": \"De Silva\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API-121 - Accept Single-word Names on Creation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Expected HTTP status is 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Names are preserved\", function () { const s = pm.response.json(); pm.expect(s.firstName).to.eql(\"John\"); pm.expect(s.lastName).to.eql(\"Smith\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/students",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"email\": \"single.word.validation@example.com\",\n  \"nearCity\": \"Kandy\",\n  \"course\": [\n    \"IT\"\n  ],\n  \"guardian\": \"David Smith\",\n  \"subject\": [\n    \"Programming\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API-122 - Verify Rejected Name Updates Did Not Change Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Expected HTTP status is 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Names remain unchanged\", function () { const students = pm.response.json(); pm.expect(students).to.be.an(\"array\").that.is.not.empty; const student = students.find(s => s.SID === Number(pm.collectionVariables.get(\"__smsRunGeneratedSecondStudentSID\"))); pm.expect(student).to.exist; pm.expect(student.firstName).to.eql(\"Maya\"); pm.expect(student.lastName).to.eql(\"Perera\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/students/search/SID/{{__smsRunGeneratedSecondStudentSID}}"
+          },
+          "response": []
         }
       ]
     }

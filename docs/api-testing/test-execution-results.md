@@ -1,10 +1,10 @@
-# API Test Execution Results - Student Management System
+# API Test Execution Results – Student Management System
 
 ## 1. Overview
 
-This document summarises the manual and automated API testing performed on the Student Management System REST API.
+This document summarises manual and automated API testing of the Student Management System REST API. It records the latest user-reported Newman run and preserves the earlier baseline.
 
-Testing covered student management operations, input validation, error handling, and regression testing.
+Testing covered student CRUD operations, searching, input validation, error handling, SID immutability, and name-validation regression testing.
 
 ## 2. Testing Environment
 
@@ -13,87 +13,103 @@ Testing covered student management operations, input validation, error handling,
 | Backend | Node.js and Express.js |
 | Database | MongoDB Atlas |
 | ODM | Mongoose |
-| Manual Testing | Postman |
-| Automated Testing | Newman |
-| Runtime | Node.js |
+| Manual testing | Postman |
+| Automated testing | Newman |
+| Automated API URL | `http://127.0.0.1:3001` |
+| Test database | `stu-management-test` (dedicated database) |
+| Test command | `npm test` |
+
+The automated runner starts a separate test API server and stops it after execution. It resets records in the dedicated test database; do not point it at a development or production database.
 
 ## 3. Test Coverage
 
-The API testing covered the following areas:
+- **Student retrieval and search:** Retrieve students and search supported fields.
+- **Student creation:** Validate required fields, emails, lengths, arrays, and server-generated SIDs.
+- **Student updates:** Test valid changes, invalid values, and preservation of existing records after rejected updates.
+- **Student deletion:** Delete existing records and handle invalid or missing student IDs.
+- **Search validation:** Test whitespace, case sensitivity, partial matches, and SID formats.
+- **Regression testing:** Verify SID immutability and one-word first/last-name validation.
 
-- **Student Retrieval:** Retrieve all students and search by supported fields.
-- **Student Creation:** Create students and validate required fields.
-- **Student Updates:** Update student information and validate update requests.
-- **Student Deletion:** Delete existing and nonexistent students.
-- **Input Validation:** Test missing, empty, invalid, and incorrectly formatted values.
-- **Search Validation:** Test case sensitivity, whitespace, partial searches, and SID formats.
-- **Error Handling:** Verify appropriate HTTP status codes and error messages.
-- **Regression Testing:** Verify that corrections did not break existing functionality.
+The current Postman/Newman collection contains **121 HTTP requests**. The test-case catalogue additionally documents **API-115**, a historical manual database restoration verification that is not an HTTP request.
 
-The test case documentation contains 116 test cases, including one manual database verification.
+## 4. Defects Identified and Corrected
 
-## 4. Defects Identified and Fixed
-
-During testing, the following issues were identified:
-
-| Issue | Original Behaviour | Correction |
+| Issue | Earlier behaviour | Expected corrected behaviour |
 |---|---|---|
-| Invalid email during creation | Returned `500 Internal Server Error` | Corrected to return `400 Bad Request` |
-| SID-only update | Allowed an update without editable fields | Rejected with `400 Bad Request` |
-| SID modification | Allowed students' SIDs to be changed | SID updates are now rejected |
-| Search whitespace | Surrounding spaces affected search results | Search values are trimmed before processing |
+| Invalid email during creation | Returned HTTP 500 | Return HTTP 400 |
+| SID-only update | Allowed an update without editable fields | Return HTTP 400 |
+| SID modification | Allowed SID changes | Reject SID updates |
+| Search whitespace | Surrounding spaces affected search | Trim search values |
+| Multiword first/last names | Validation errors could be classified as HTTP 500 | Return HTTP 400 for internal whitespace |
 
-Regression testing confirmed that the corrected update validation, SID protection, and normal student operations continued to work.
+Earlier SID modification failures remain part of the historical record; they are not claims about the current implementation.
 
-The original failures for API-106 and API-108 are retained in the historical testing record. Their corrected behaviour was subsequently tested.
+## 5. Automated Test Execution – Newman
 
-## 5. Automated Test Execution - Newman
-
-The automated test suite was executed using:
+Command:
 
 ```bash
 npm test
 ```
 
-The runner uses a separate MongoDB Atlas test database (`stu-management-test`) and starts the API server on port `3001`.
+### 5.1 Latest verified console results (20 November 2026)
 
-### Execution Results
+The following figures come from the Newman terminal summary supplied after adding API-117–API-122.
 
 | Metric | Result |
 |---|---:|
-| HTTP Requests Executed | 115 |
-| Failed Requests | 0 |
-| Total Assertions | 180 |
-| Passed Assertions | 180 |
-| Failed Assertions | 0 |
-| Execution Time | 29.8 seconds |
-| Average Response Time | 52 ms |
+| Iterations | 1 |
+| HTTP requests executed | 121 |
+| Failed requests | 0 |
+| Test scripts executed | 121 |
+| Failed test scripts | 0 |
+| Prerequest scripts executed | 6 |
+| Failed prerequest scripts | 0 |
+| Assertions executed | 210 |
+| Failed assertions | 0 |
+| Passed assertions | 210 |
+| Total run duration | 34.1 seconds |
+| Average response time | 74 ms |
+| Minimum response time | 1 ms |
+| Maximum response time | 242 ms |
+| Approximate data received | 20.66 kB |
 
-**Overall Result: PASS**
+**Overall result: PASS — 121 requests, 210 passing assertions, 0 failures.**
 
-All 180 assertions passed during the latest Newman execution.
+The terminal output specifically confirms that **API-122 – Verify Rejected Name Updates Did Not Change Student** returned `200 OK` and passed both assertions, including **“Names remain unchanged.”**
 
-### Generated Reports
+The complete Newman summary indicates the full updated collection passed, including API-117–API-122. Individual request-by-request details should be taken from the generated JSON/HTML reports rather than inferred from this summary.
 
-The automated runner generates:
+### 5.2 Earlier automated execution baseline
 
-- `reports/newman-report.html` - Visual test execution report.
-- `reports/newman-report.json` - Structured test execution results.
+| Metric | Earlier recorded result |
+|---|---:|
+| HTTP requests | 115 |
+| Failed requests | 0 |
+| Assertions | 180 |
+| Failed assertions | 0 |
+| Execution time | 29.8 seconds |
+| Average response time | 52 ms |
+
+**Historical result: PASS.** This baseline is retained for traceability; it is not the latest execution.
+
+### 5.3 Generated Reports
+
+The automated runner saved:
+
+- `reports/newman-report.html` – visual Newman report.
+- `reports/newman-report.json` – structured Newman report.
+
+The latest report paths were shown in the user's terminal output. The report files themselves were not supplied for independent request-level inspection.
 
 ## 6. Testing Limitations
 
-- Results cover the tested scenarios and do not guarantee that every possible API behaviour has been tested.
-- Some tests depend on data created by earlier test cases.
-- The automated suite uses a separate test database.
-- API-115 is a manual database restoration verification and is not included in the 115 Newman HTTP requests.
-- Passing tests do not establish that the application is production-ready.
+- Passing tests demonstrate the tested behaviours only; they do not prove complete correctness or production readiness.
+- Some requests rely on records created earlier in the collection and must execute in order.
+- The test database is separate from the development database.
+- **API-115** is a historical manual database verification, not one of the 121 automated HTTP requests.
+- The latest metrics were verified against the shared terminal summary, not by independently rerunning the API or inspecting the report files.
 
 ## 7. Conclusion
 
-The testing process helped identify and correct issues in email validation, update requests, SID protection, and search handling.
-
-The test documentation contains 116 test cases, comprising 115 HTTP requests executed through Newman and one manual database restoration verification.
-
-The latest Newman execution completed all 115 HTTP requests with 180 passing assertions and no failures.
-
-The results demonstrate that the tested API functionality behaved as expected during the recorded executions.
+The updated Newman run completed **121 HTTP requests** with **210 passing assertions** and **zero failures** in **34.1 seconds**. The result supports successful regression testing of the existing API functionality and the newly added first/last-name validation scenarios. Historical defects and earlier results remain documented separately for traceability.

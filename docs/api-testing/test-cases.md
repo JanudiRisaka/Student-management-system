@@ -4,9 +4,9 @@
 
 This document describes the API test cases designed and executed for the Student Management System REST API.
 
-The purpose of API testing is to verify endpoint functionality, request handling, input validation, error handling, and database operations.
+The purpose of API testing is to verify endpoint functionality, request handling, input validation, error handling, and database operations. The current automated collection contains 121 HTTP requests; API-115 is a separate historical manual database verification.
 
-Testing is performed using Postman against the locally running backend application.
+Testing is performed using Postman for manual requests and Newman for automated collection execution.
 
 ## 2. Testing Environment
 
@@ -57,9 +57,9 @@ These test cases verify the basic functionality of retrieving, creating, updatin
 
 | Test ID | Test Scenario | Method | Endpoint | Expected Status |
 |---|---|---|---|---|
-| API-001 | Retrieve all students when the database is empty | GET | `/students` | 200 |
+| API-001 | Retrieve all students and verify the JSON array and seeded test record | GET | `/students` | 200 |
 | API-002 | Add a student with valid information | POST | `/students` | 201 |
-| API-003 | Attempt to add a student with a duplicate SID | POST | `/students` | 409 |
+| API-003 | Create another student while supplying a reused SID; verify the server generates a new unique SID | POST | `/students` | 201 |
 | API-004 | Add a student without the required firstName field | POST | `/students` | 400 |
 | API-005 | Add a student with an invalid email address | POST | `/students` | 400 |
 | API-006 | Attempt to update a student with an invalid email address | PUT | `/students/update/1001` | 400 |
@@ -141,19 +141,23 @@ These test cases verify student search functionality using different supported s
 
 These test cases verify validation rules when creating student records.
 
-## 6.1 Student ID Validation
+## 6.1 Server-Generated Student ID (SID) Testing
+
+The backend generates the `SID` automatically when a student is created. Any `SID` supplied in the POST body is ignored. Therefore, invalid, missing, repeated, or differently formatted client-supplied SIDs do not cause SID validation errors on creation, provided all other student fields are valid.
 
 | Test ID | Test Scenario | Method | Endpoint | Expected Status |
 |---|---|---|---|---|
-| API-051 | Create a student using an alphabetic SID | POST | `/students` | 400 |
-| API-052 | Create a student using a negative SID | POST | `/students` | 400 |
-| API-053 | Create a student using SID zero | POST | `/students` | 400 |
-| API-054 | Create a student using a decimal SID | POST | `/students` | 400 |
-| API-055 | Create a student without SID | POST | `/students` | 400 |
-| API-056 | Create a student using an empty SID | POST | `/students` | 400 |
-| API-057 | Create a student using a numeric string as SID | POST | `/students` | 201 |
-| API-058 | Create a student using a whitespace-only SID | POST | `/students` | 400 |
-| API-059 | Create a student using an unsafe integer SID | POST | `/students` | 400 |
+| API-051 | Create a student while supplying an alphabetic SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-052 | Create a student while supplying a negative SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-053 | Create a student while supplying SID zero; verify a generated SID is returned | POST | `/students` | 201 |
+| API-054 | Create a student while supplying a decimal SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-055 | Create a student without supplying SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-056 | Create a student while supplying an empty SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-057 | Create a student while supplying a numeric-string SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-058 | Create a student while supplying a whitespace-only SID; verify a generated SID is returned | POST | `/students` | 201 |
+| API-059 | Create a student while supplying an unsafe-integer SID; verify a generated SID is returned | POST | `/students` | 201 |
+
+**Important:** SID format validation still applies to URL parameters used for searching, updating, and deleting students.
 
 ## 6.2 First Name Validation
 
@@ -308,7 +312,7 @@ Expected response:
 
 | Test ID | Test Scenario | Method | Endpoint | Expected Status |
 |---|---|---|---|---|
-| API-114 | Verify that student creation still accepts a SID after implementing update protection | POST | `/students` | 201 |
+| API-114 | Verify that student creation succeeds when a SID is supplied, but the server generates its own SID | POST | `/students` | 201 |
 
 ## 9.5 Verify Restored Student Record
 
@@ -337,31 +341,55 @@ The restoration was verified manually in the test database. A subsequent API req
 
 ---
 
-# 10. Test Data and Preconditions
+# 10. Regression Testing – First and Last Name Validation
+
+These tests verify the current rule that `firstName` and `lastName` must each contain only one word. Internal whitespace is rejected; valid single-word names are accepted. Surrounding whitespace is trimmed before validation.
+
+| Test ID | Test Scenario | Method | Endpoint | Expected Status |
+|---|---|---|---|---|
+| API-117 | Reject creation when `firstName` is `John Paul` | POST | `/students` | 400 |
+| API-118 | Reject creation when `lastName` is `Van Smith` | POST | `/students` | 400 |
+| API-119 | Reject update when `firstName` is `Mary Jane` | PUT | `/students/update/{{__smsRunGeneratedSecondStudentSID}}` | 400 |
+| API-120 | Reject update when `lastName` is `De Silva` | PUT | `/students/update/{{__smsRunGeneratedSecondStudentSID}}` | 400 |
+| API-121 | Accept creation with valid single-word `firstName` and `lastName` | POST | `/students` | 201 |
+| API-122 | Verify rejected name updates did not change the existing student's names | GET | `/students/search/SID/{{__smsRunGeneratedSecondStudentSID}}` | 200 |
+
+**Expected validation messages:**
+
+- `firstName must contain only one word.`
+- `lastName must contain only one word.`
+
+**Verification:** API-122 checks that the original names are preserved after API-119 and API-120 are rejected.
+
+**Automated regression result (20 November 2026):** The complete Newman collection executed 121 HTTP requests and 210 assertions, with zero request failures and zero assertion failures. Total duration was 34.1 seconds; average response time was 74 ms. This result is based on the Newman console output and is also recorded separately in `test-execution-results.md` when that file is updated.
+
+---
+
+# 11. Test Data and Preconditions
 
 The following conditions should be considered when executing the test cases:
 
 - The backend application must be running.
 - MongoDB must be connected successfully.
-- The Postman environment must be selected.
+- The Postman environment or collection variables must be configured.
 - The `base_url` variable must point to the local backend.
-- Student IDs used for creation must not already exist in the database.
+- The backend generates SIDs automatically; do not rely on client-supplied SID values.
 - Tests involving existing students require the relevant test records to be available.
 - Tests involving deletion should use disposable test records.
 - Tests that modify student information should use a dedicated test database.
 
-Some test cases depend on records created by earlier test cases. Execute dependent tests in the appropriate order or prepare the required test data beforehand.
+Some test cases depend on records created by earlier test cases. Execute dependent tests in collection order or prepare the required test data beforehand. The automated runner seeds its dedicated test database and resets test records; do not run it against the development database.
 
-# 11. Expected Testing Outcomes
+# 12. Expected Testing Outcomes
 
 The API should satisfy the following requirements:
 
 1. Retrieve student records successfully.
 2. Create student records using valid information.
-3. Reject duplicate student IDs.
+3. Generate a unique student SID on creation, regardless of any client-supplied SID.
 4. Validate required student fields.
 5. Reject invalid email addresses.
-6. Validate student ID formats and boundaries.
+6. Validate student ID formats and boundaries in URL parameters.
 7. Validate course and subject values.
 8. Support searching students using supported fields.
 9. Return appropriate responses when students cannot be found.
@@ -370,9 +398,9 @@ The API should satisfy the following requirements:
 12. Reject empty update requests.
 13. Delete existing student records.
 14. Return appropriate HTTP status codes for invalid requests and unsuccessful operations.
-15. Preserve existing student data when an update request is rejected.
+15. Preserve existing student data when an update request is rejected.\n16. Reject internal whitespace in first and last names during creation and updates.\n17. Accept valid single-word first and last names.
 
-# 12. Evidence and Screenshots
+# 13. Evidence and Screenshots
 
 Postman screenshots should be stored in the `screenshots/` directory.
 
@@ -386,7 +414,7 @@ Recommended screenshot evidence includes:
 
 Screenshots should be organized according to the relevant testing category.
 
-# 13. Test Execution Records
+# 14. Test Execution Records
 
 Actual execution results are documented separately in:
 
