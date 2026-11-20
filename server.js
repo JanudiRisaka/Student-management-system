@@ -257,6 +257,7 @@ app.post('/students', async (req, res) => {
             error.message.includes('required') ||
             error.message.includes('cannot exceed') ||
             error.message.includes('must be') ||
+            error.message.includes('must contain only one word') ||
             error.message.includes('valid email address')
         ) {
             return res.status(400).json({
@@ -371,7 +372,8 @@ app.put('/students/update/:option', async (req, res) => {
             error.message.includes('Invalid') ||
             error.message.includes('cannot exceed') ||
             error.message.includes('must be') ||
-            error.message.includes('valid email address')
+            error.message.includes('valid email address') ||
+            error.message.includes('must contain only one word')
         ) {
             return res.status(400).json({
                 message: error.message
