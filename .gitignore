@@ -45,3 +45,5 @@ Desktop.ini
 # Temporary files
 *.tmp
 *.temp
+
+/docs/demo/*.mp4
