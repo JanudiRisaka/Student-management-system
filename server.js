@@ -103,7 +103,13 @@ function sanitizeStudentInput(data) {
     ];
 
     const sanitizedData = {};
-
+    const fieldMaxLengths = {
+        firstName: 50,
+        lastName: 50,
+        email: 254,
+        nearCity: 100,
+        guardian: 100
+    };
     for (const field of allowedFields) {
         if (!Object.prototype.hasOwnProperty.call(data, field)) {
             continue;
@@ -140,10 +146,18 @@ function sanitizeStudentInput(data) {
 
         const trimmedValue = value.trim();
 
-        if (trimmedValue.length > 150) {
-            throw new Error(`${field} cannot exceed 150 characters.`);
+        if (
+            (field === 'firstName' || field === 'lastName') &&
+            /\s/.test(trimmedValue)
+        ) {
+            throw new Error(`${field} must contain only one word.`);
         }
 
+        if (trimmedValue.length > fieldMaxLengths[field]) {
+            throw new Error(
+                `${field} cannot exceed ${fieldMaxLengths[field]} characters.`
+            );
+        }
         sanitizedData[field] = trimmedValue;
     }
 
@@ -154,7 +168,6 @@ function sanitizeStudentInput(data) {
     ) {
         throw new Error('Please provide a valid email address.');
     }
-
     return sanitizedData;
 }
 

@@ -293,6 +293,18 @@
                     return;
                 }
 
+                // Ensure first and last names contain only one word.
+                if (
+                    /\s/.test(studentData.firstName) ||
+                    /\s/.test(studentData.lastName)
+                ) {
+                    showFeedback(
+                        "First name and last name must each contain only one word.",
+                        "warning"
+                    );
+                    return;
+                }
+
                 if (studentData.subject.length === 0) {
                     showFeedback(
                         "Please enter at least one subject.",
