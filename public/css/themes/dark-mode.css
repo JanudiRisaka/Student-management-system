@@ -49,6 +49,11 @@ html.dark-mode #settings {
     border-color: var(--border);
 }
 
+/* Navbar brand - Dark Mode */
+html.dark-mode .navbar > a {
+    color: var(--text-primary) !important;
+}
+
 /* Tables */
 html.dark-mode .table {
     --bs-table-bg: var(--surface);
@@ -101,4 +106,17 @@ html.dark-mode .delete-student-warning {
     background-color: #422006;
     border-color: #92400e;
     color: #fde68a;
+}
+
+/* Home page hero - Dark Mode */
+html.dark-mode .hero-content {
+    background: var(--surface);
+}
+
+html.dark-mode .hero-content h1 {
+    color: var(--text-primary);
+}
+
+html.dark-mode .hero-content p {
+    color: var(--text-secondary);
 }

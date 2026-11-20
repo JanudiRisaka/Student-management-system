@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Apply saved theme before the page renders -->
+    <!-- Apply saved theme -->
     <script>
         (function () {
             try {
@@ -15,23 +15,16 @@
         })();
     </script>
 
-    <!-- Basic metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Student Management System | Barnett College</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS (must load after Bootstrap) -->
+    <!-- Main CSS -->
     <link href="css/main.css" rel="stylesheet">
-
-    <!-- jQuery: required by pages using $ or jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-    </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -40,14 +33,11 @@
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-            <!-- College brand -->
             <a class="h3 text-decoration-none" href="home.html">
-                <img src="images/logo.png" width="40" height="40" class="d-inline-block align-top"
-                    alt="Barnett College Logo">
+                <img src="images/logo.png" width="40" height="40" alt="Barnett College Logo">
                 Barnett College
             </a>
 
-            <!-- Mobile hamburger button -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -55,8 +45,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Navigation links -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 <div class="ms-auto">
                     <ul class="navbar-nav">
 
@@ -90,28 +80,59 @@
 
         </nav>
     </header>
-    <!-- End Navigation -->
 
-    <!-- Main content -->
-    <main class="flex-grow-1">
+    <!-- Main Content -->
+    <main class="home-main flex-grow-1">
 
-        <!-- Hero image slider -->
+        <!-- Hero Section -->
         <section class="home-hero" aria-label="Welcome to Barnett College">
 
             <img src="images/image01.jpg" id="slideImg" alt="Barnett College campus">
 
             <div class="hero-content">
+
                 <h1>Welcome to Barnett College</h1>
 
                 <p>
-                    Cultivating brilliance, shaping futures, where
-                    innovation meets inclusive academic excellence.
+                    Cultivating brilliance, shaping futures,
+                    where innovation meets inclusive
+                    academic excellence.
                 </p>
 
                 <a href="display.html" class="btn btn-primary">
                     Explore Students
                 </a>
+
             </div>
+        </section>
+
+
+        <!-- College Statistics -->
+        <section class="college-stats">
+
+            <div class="row g-3 justify-content-center">
+
+                <!-- Total Students -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-icon" aria-hidden="true">🎓</div>
+                        <h3 id="totalStudents" aria-live="polite">--</h3>
+                        <p>Total Students</p>
+                    </div>
+                </div>
+
+                <!-- Total Courses -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-icon" aria-hidden="true">📚</div>
+                        <h3 id="totalCourses" aria-live="polite">--</h3>
+                        <p>Total Courses</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <p id="statsMessage" class="stats-message" role="status" aria-live="polite"></p>
 
         </section>
 
@@ -119,30 +140,35 @@
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3">
+
         <div class="container text-center">
 
             <p class="mb-1">
-                &copy; 2026 Barnett College. All rights reserved.
+                &copy; 2026 Barnett College.
+                All rights reserved.
             </p>
 
             <p class="mb-0">
-                Cultivating brilliance, shaping futures, where
-                innovation meets inclusive academic excellence.
+                Cultivating brilliance, shaping futures,
+                where innovation meets inclusive
+                academic excellence.
             </p>
 
         </div>
     </footer>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
-    <!-- Application settings -->
+    <!-- Existing Settings -->
     <script src="settings.js"></script>
 
-    <!-- Homepage image slider -->
+    <!-- Homepage JavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
+            // Image Slider
             const slideImg = document.getElementById("slideImg");
 
             const images = [
@@ -159,6 +185,67 @@
             }
 
             setInterval(changeSlide, 3000);
+
+
+            // Dynamic College Statistics
+            async function loadCollegeStatistics() {
+
+                const studentsElement =
+                    document.getElementById("totalStudents");
+
+                const coursesElement =
+                    document.getElementById("totalCourses");
+
+                const messageElement =
+                    document.getElementById("statsMessage");
+
+                try {
+                    const response = await fetch("/students");
+
+                    if (!response.ok) {
+                        throw new Error("Unable to fetch students");
+                    }
+
+                    const students = await response.json();
+
+                    if (!Array.isArray(students)) {
+                        throw new Error("Invalid student data");
+                    }
+
+                    // Total student records
+                    const totalStudents = students.length;
+
+                    // Count unique non-empty courses
+                    const uniqueCourses = new Set(
+                        students
+                            .map(student =>
+                                String(student.course ?? "")
+                                    .trim()
+                                    .toLowerCase()
+                            )
+                            .filter(course => course !== "")
+                    );
+
+                    studentsElement.textContent = totalStudents;
+                    coursesElement.textContent = uniqueCourses.size;
+                    messageElement.textContent = "";
+
+                } catch (error) {
+
+                    console.error(
+                        "Error loading college statistics:",
+                        error
+                    );
+
+                    studentsElement.textContent = "N/A";
+                    coursesElement.textContent = "N/A";
+
+                    messageElement.textContent =
+                        "College statistics are currently unavailable.";
+                }
+            }
+
+            loadCollegeStatistics();
 
         });
     </script>

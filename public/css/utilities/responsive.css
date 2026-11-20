@@ -1,17 +1,34 @@
+
 /* =========================================
    SHARED RESPONSIVE UTILITIES
    ========================================= */
 
-/* Prevent horizontal overflow */
 html,
 body {
-    max-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 }
 
 img {
     max-width: 100%;
     height: auto;
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+    body {
+        min-height: 100vh;
+    }
+
+    .navbar,
+    main,
+    footer {
+        width: 100%;
+        max-width: none;
+    }
 }
 
 /* Tablet */
